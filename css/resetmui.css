@@ -1,0 +1,18 @@
+/*
+ 这是单独为hello mui准备的个性化css，可以覆盖重置标准mui的css定义；
+*/
+.mui-btn-block{ padding:6px 0!important; font-size: 19px;}
+.mui-bar, .mui-navbar{ background: url(../images/headerbg.png) no-repeat left top;  background-size: 100% 100%;}
+.mui-title{ color: #2bb2ff;}
+
+.mui-content{ position: absolute; width:100%; height: 100%; background:url(../images/feedback_bg.jpg) no-repeat left top;background-attachment: fixed; background-size: 100% 100%;}
+.mui-backdrop{background-color: rgba(0,0,0,.6);}
+
+.input-transfer-text{ padding: 10px 15px 10px 0; float: right; width: 60%;}
+
+/*弹出框加古典样式*/
+.mui-popup.mui-popup-in{min-height:180px;background: url(../images/tanchukuang_bg.png) no-repeat center;background-size: 270px 180px;}
+.mui-popup-inner,.mui-popup-button{background-color: transparent;}
+.mui-popup-inner{padding: 30px 26px 15px;}
+.mui-popup-inner:after{width:80%;left:50%;margin-left: -40%;}
+.mui-popup-input input[type=password]{width:86%;margin: 0 auto !important;}

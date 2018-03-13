@@ -1,0 +1,4 @@
+﻿# 以下文件不被管控
+unpackage/.confirmed_dependencies
+manifest.json
+!.gitignore

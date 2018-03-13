@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/resetmui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 30%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 65%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			.mui-input-row .mui-btn{ width: auto; line-height: 1;}
+			.vercode{ position: absolute; right: 2px; top:2px;}
+			
+			.mui-content{position: absolute;width: 100%;height: 100%;background: url(../images/kuang_bg.jpg) no-repeat left top;background-attachment: fixed;background-size: 100% 100%;}
+			.mui-input-group{background-color:transparent;}
+			.mui-input-group:before,.mui-input-group:after,.mui-input-row:after{height: 0 !important;}			
+			.fshoujihao{width:78.3%;height:37px;background: url(../images/input_bg.png) no-repeat  left top !important;background-size: 100% 100% !important;margin:0 auto 15px;}
+			.mui-input-row label{padding:11px 8px 11px 20px;text-align: center;}
+			.mui-input-row label.faccount{width:32%;padding-right: 0;}
+			.mui-input-row label~input{width: 68%; }
+			.fshoujihao .mui-input{float: left;}
+			.mui-input-row .mui-btn{padding: 6px 0px;margin-right: 16px;margin-top: 4px;}
+			.ftijiao{width:141px;height:58px;background: url(../images/zhuce_bg.png) no-repeat  left top;background-size: 100% 100%;margin: 0 auto;border:none;}
+			.reg-notice{width:78%;margin: 0 auto;color:#000;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">注册</h1>
+		</header>
+		<div class="mui-content">
+
+			<form class="mui-input-group">
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">手  机  号</label>				
+					<input id='account' type="text" class="mui-input" placeholder="请输入账号" value="">
+					<button type="button" id="check_phone" class="mui-btn mui-btn-primary vercode" data-loading-icon="mui-spinner mui-spinner-custom" data-loading-text="等待接收验证码">获取验证码</button>
+				</div>
+				
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">验  证  码</label>
+					<input id='verification' type="number" class="mui-input-clear mui-input" placeholder="请输入验证码">
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">密 码</label>
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">确认密码</label>
+					<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+				</div>
+			</form>
+
+			<div class="mui-content-padded">
+				<button id='regButton' class="mui-btn mui-btn-block mui-btn-primary ftijiao"></button>
+			</div>
+			<div class="mui-content-padded">
+				<p class="reg-notice">注册真实可用，注册成功后的用户可用于登录，但是示例程序并未和服务端交互，用户相关数据仅存储于本地。</p>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/config.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script>
+
+		</script>	
+		<script>
+			
+			(function($, doc) {
+				$.init();				
+				$.plusReady(function() {
+
+
+			}(mui, document));
+			});
+			//JQ接口调试
+			$("#check_phone").click(function () {
+				var ob = $(this);
+				ob.attr("disabled", true);
+				var phone = $('#account').val();
+				var reg = /^1[3|4|5|8|7][0-9]\d{8}$/;
+				if (phone == "" || !reg.test(phone)) {
+					mui.toast("请正确填写手机号码");
+					ob.removeAttr("disabled");
+					return;
+				}
+				setTimeout(function(){
+					ob.removeAttr("disabled");
+				},60000)
+				$.post(config.hostw+"home/Register/check_phone", {phone: phone}, function (data) {
+					console.log(data);
+					if (data.status == 1) {
+						mui.toast(data.message);
+					} else {
+						mui.toast(data.message);
+					}
+				});
+			});
+			$('#regButton').click(function(){    			
+				var user_phone = $('#account').val();
+				var yzm = $('#verification').val();
+				var user_pass = $('#password').val();
+				var password_confirm = $('#password_confirm').val();
+				$.post(config.hostw+'home/Register/reg',{user_phone:user_phone,yzm:yzm,user_pass:user_pass,user_repass:password_confirm},function(data){
+					if (data.status == 0) {
+						mui.toast(data.message);
+					} else if(data.status ==1){
+						//本地存储data.message
+		          		var useraccount = "useraccount"; 
+		          		 if (localStorage) { 
+				            localStorage.setItem(useraccount, user_phone);   
+				        } else { 
+				            Cookie.write(useraccount, user_phone);  
+				        } 
+						mui.toast(localStorage.getItem(useraccount));
+				        
+						mui.toast(data.message);
+						mui.openWindow({
+							url:"wanshan.html",
+							id:"wanshan"
+						})
+				}
+				});
+
+			});
+		</script>
+	</body>
+
+</html>

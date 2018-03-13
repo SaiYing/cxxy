@@ -1,0 +1,224 @@
+﻿/*
+ *这是单独为hello mui准备的个性化css，可以覆盖标准mui的css定义；
+ * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
+ * 
+ * */
+/*.mui-plus header.mui-bar{
+	display: none;
+}
+.mui-plus .mui-bar-nav~.mui-content{
+	padding: 0;
+}*/
+
+/*hm开头的表示仅为 Hello MUI示例定义*/
+.hm-description{
+	margin: .5em 0;
+}
+ 
+.hm-description>li {
+	font-size: 14px;
+	color: #8f8f94;
+}
+/* 图片变灰滤镜*/
+.gray { 
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);	
+    filter: gray;
+}
+
+/*color*/
+.special{ color: #40AFFE;}
+
+/* 登录 */
+
+.ui-page-login,body {width: 100%;height: 100%;margin: 0px;padding: 0px;}
+.mui-content {height: 100%;}
+.area {margin: 20px auto 0px auto;}
+.mui-input-group {margin-top: 10px;}
+.mui-input-group:first-child {margin-top: 20px;}
+.mui-input-group label {width: 30%;}
+.mui-input-row label~input,.mui-input-row label~select,.mui-input-row label~textarea {width: 70%;}
+.mui-checkbox input[type=checkbox],.mui-radio input[type=radio] {top: 6px;}
+.mui-content-padded {margin-top: 25px;}
+.mui-btn {padding: 10px;}
+.link-area {display: block;margin-top:5px;text-align: center; color: #000;}
+.link-area a{ color: #000;}
+.spliter {color: #000;padding: 0px 8px;}
+.oauth-area {position: absolute;bottom: 20px; left: 0px;text-align: center;width: 100%;padding: 0px;margin: 0px;}			
+.oauth-area .oauth-btn {display: inline-block;width: 50px;height: 50px;background-size: 30px 30px;background-position: center center;background-repeat: no-repeat;margin: 0px 20px;/*-webkit-filter: grayscale(100%); */border: solid 1px #ddd;border-radius: 25px;}
+.oauth-area .oauth-btn:active {border: solid 1px #aaa;}
+.oauth-area .oauth-btn.disabled {background-color: #ddd;}
+
+/* 首页 */
+
+.public_area{ position: fixed; z-index: 99; top:110px; left: 0; width: 100%; height: 30px; background-color: #FFEFBF; border-top:1px solid #EC971F; border-bottom: 1px solid #EC971F;}
+.public_area marquee{ line-height: 30px; color: #EC971F;}
+.header{ position:fixed; z-index: 100; top:0; left:0; width: 100%; height: 120px; background: url(../images/header-bg.png) no-repeat; background-size: 100% 100%;}
+.avator{  margin:15px; float:left; width: 60px; height: 60px; background: url(../images/avator_nan.jpg) no-repeat; background-size: 100% 100%;}
+.avator img{width: 60px; height: 60px;}
+.level{ color: #fff; position: absolute; left:90px; top:30px}
+.level .username{ font-size: 14px; width: 76px; height: 21px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+.level .grade{ width: 76px; height: 22px; line-height: 22px; font-size: 14px; text-align: center; background: url(../images/level_tianxian.png) no-repeat; background-size: 100% 100%;}
+.property{float:right; margin-top: 10px; font-size: 12px;}
+.property .spar{ float:left; margin-right:10px; width: 100px; height: 32px; line-height: 20px; text-align: center; color:#fff; background: url(../images/jingshi.png) no-repeat; background-size: 100% 100%;}
+.property .aquamarine{ float: left; width: 100px; height: 32px;line-height: 20px; text-align: center; color:#fff; background: url(../images/lanjing.png) no-repeat; background-size:100% 100%;}
+
+.entrance{ float: right; margin-top: 10px;}
+.entrance .shangdian{ display: block; float:left; margin-right: 10px; width:30px; height: 37px; background: url(../images/shangdian.png) no-repeat; background-size: 100% 100%;}
+.entrance .tuandui{ display: block; float:left;  margin-right: 10px; width:24px; height: 37px; background: url(../images/tuandui.png) no-repeat; background-size: 100% 100%;}
+.entrance .shangcheng{ display: block; float:left;  margin-right: 10px; width:30px; height: 37px; background: url(../images/shangcheng.png) no-repeat; background-size: 100% 100%;}
+.entrance .choujiang{ display: block; float:left;  margin-right: 10px; width:30px; height: 37px; background: url(../images/choujiang.png) no-repeat; background-size: 100% 100%;}
+
+.xxindex-body{ position: relative; top: 120px; }
+.flyarea{position: relative;}
+.xxmain{ position: absolute; bottom:0; width: 100%; height: 100%; background: url(../images/index-map.png) no-repeat center bottom; background-size:100% auto;}
+.person-level{ position: absolute; z-index: 10; bottom:0; left:15%;}
+.figure{ float:left; margin-bottom: 20px; display: none; position:relative;}
+.figure img{ height:60px;}
+
+.player_self{ position: absolute; right:20px; bottom:80px;}
+.player_self img{ height: 60px;}
+
+.operation{position: fixed; z-index: 100; bottom:10px; left: 0; width: 100%;}
+.operation .big-btn{ display: block; width: 60px; height: 72px; background: url(../images/btn-bg.png) no-repeat; background-size: 100% 100%; text-align: center;}
+.operation .big-btn:active{ display: block; width: 60px; height: 72px; background: url(../images/btn-bg-hover.png) no-repeat; background-size: 100% 100%; text-align: center;}
+
+.operation .hero{ float: left; margin-left: 10px;}
+.operation .hero img{ width:30px; margin-top: 25px;}
+.operation .player{ float: right; margin-right: 10px;}
+.operation .player img{ width: 30px; margin-top: 25px;}
+.hero_link{ position:absolute; z-index: 101; left:0; bottom:80px; display: none;}
+.player_link{ position:absolute; z-index: 101; right:10px; bottom:80px; display: none;}
+.hero_link .big-btn, .hero_link .big-btn:active{ width: 60px; height: 72px; margin-left: 10px;}
+.hero_link .big-btn img, .player_link .big-btn img{ height: 16px; margin-top: 26px;}
+
+.xxtabs{ padding:50px; color:#fff; overflow: hidden; margin: 0 auto;}
+
+.xxtabs .navbar ul{ padding: 0; margin: 0;}
+.xxtabs .navbar li{  height: 30px; line-height: 34px; list-style: none; display: block; background: url(../images/title_bg.png) no-repeat; background-size: 100% 100%; text-align: center; color: #b60005;}
+.xxtabs .navbar .xxdt{ background: url(../images/xxdt.png) no-repeat; background-size: 100% 100%; }
+.xxtabs .navbar .xxdt_h{ background: url(../images/xxdt.png) no-repeat; background-size: 100% 100%; }
+.xxtabs .navbar .grzl{ background: url(../images/grzl.png) no-repeat; background-size: 100% 100%; }
+.xxtabs .navbar .grzl_h{ background: url(../images/grzl_h.png) no-repeat; background-size: 100% 100%;}
+
+.xxtabs .custom_navbar ul{ padding: 0; margin: 0; overflow: hidden;}
+.xxtabs .custom_navbar ul li{  list-style: none; display: block; color: #b60005;}
+.custom_navbar li.gem{ width: 48%; height: 30px; line-height: 30px; float: left; background: url(../images/gem.png) no-repeat; background-size: 100% 100%;}
+.custom_navbar li.gem_active{ width: 48%; height: 30px; line-height: 30px;  float: left; background: url(../images/gem_active.png) no-repeat; background-size: 100% 100%;}
+.custom_navbar li.hero{ width: 48%; height: 30px; line-height: 30px; float: right; background: url(../images/hero.png) no-repeat; background-size: 100% 100%;}
+.custom_navbar li.hero_active{ width: 48%; height: 30px; line-height: 30px; float: right; background: url(../images/hero_active.png) no-repeat; background-size: 100% 100%;}
+
+.cot_xxdt{ height: 360px; overflow-y: auto;}
+.cot_xxdt .list{ padding: 5px 0; overflow: hidden;}
+.cot_xxdt .list .avator{ margin: 0 10px; width: 70px; height: 70px;}
+.cot_xxdt .list .avator img{ width: 70px; height: 70px;}
+.cot_xxdt .list .text{ font-size: 12px; height: 50px; height: 24px; line-height: 24px; overflow: hidden;}
+
+.cot_beibao{max-height: 400px; overflow-y: auto;}
+.cot_beibao .list{ float: left; width: 50%; text-align: center; padding: 10px 0;}
+.cot_beibao .list .avator{ margin: 0 auto; width: 80px; height: 80px; float: none;}
+.cot_beibao .list .avator img{ width: 80px; height: 80px;}
+.cot_beibao .list .text{ font-size: 12px; height: 20px; line-height: 20px; overflow: hidden;}
+.cot_beibao .xxbtn, .cot_beibao .xxbtn:active{ float: none; margin: 0 auto;}
+.btn-log{ overflow: hidden; border-bottom:2px solid #b60005; padding: 10px;}
+.btn-log .btn-box{ width: 50%; float:left;}
+.js_box{ overflow: hidden;}
+.myHero{ overflow: hidden;}
+.myHero .tit{overflow: hidden; text-align: center;border-bottom:2px solid #b60005;}
+
+.cot_gem{ max-height: 480px; overflow-y: auto;}
+.cot_gem .list{ padding: 5px 0; overflow: hidden;}
+.cot_gem .list .avator{ margin: 0 10px; width: 70px; height: 70px;}
+.cot_gem .list .avator img{ width: 70px; height: 70px;}
+.cot_gem .list .text{ font-size: 12px; height: 50px; overflow: hidden;}
+
+.cot_hero{ max-height: 480px; overflow-y: auto;}
+.cot_hero .list{ padding: 5px 0; overflow: hidden;}
+.cot_hero .list .avator{ margin: 0 10px; width: 70px; height: 70px;}
+.cot_hero .list .avator img{ width: 70px; height: 70px;}
+.cot_hero .list .text{ font-size: 12px; height: 50px; overflow: hidden;}
+
+.xxbtn{ display: block; text-align: center; font-size: 12px; width: 70px; height: 20px; line-height: 20px; color: #fff!important; float: left; margin-right: 2px; background: url(../images/xxbtn-primary.png) no-repeat; background-size:100% 100%;}
+.xxbtn:active{ display: block; width: 70px; height: 20px; line-height: 20px; color: #fff!important; float: left; margin-right: 2px; background: url(../images/xxbtn-primary-active.png) no-repeat; background-size:100% 100%;}
+.xxbtn.xxdisable{display: block; text-align: center; font-size: 12px; width: 70px; height: 20px; line-height: 20px; color: #fff!important; float: left; margin-right: 2px; background: url(../images/xxbtn_disable.png) no-repeat; background-size:100% 100%;}
+
+/** css3 动画 **/
+.flyBird{
+	position:absolute; top:60px; left:-50px;
+	animation: flybird 5s;
+	-moz-animation: flybird 5s;	/* Firefox */
+	-webkit-animation: flybird 5s;	/* Safari 和 Chrome */
+	animation-iteration-count:infinite;
+	animation-delay:2s;
+	animation-fill-mode: backwards;
+	/*animation-direction: alternate;*//*动画应该轮流反向播放。*/
+}
+/*英雄在站立处上下移动*/
+.yaochixianzi{animation: yaochixianzi 2s;-moz-animation: yaochixianzi 2s;	/* Firefox */-webkit-animation: yaochixianzi 2s;	/* Safari 和 Chrome*/animation-iteration-count:5;animation-delay:2s;animation-fill-mode: backwards;/*animation-direction:alternate;*//*动画应该轮流反向播放。*/}
+.caikuangjingling{animation: yaochixianzi 2s;-moz-animation: yaochixianzi 2s;	/* Firefox */-webkit-animation: yaochixianzi 2s;	/* Safari 和 Chrome*/animation-iteration-count:8;animation-delay:50s;animation-fill-mode: backwards;/*animation-direction:alternate;*//*动画应该轮流反向播放。*/ }
+.caizhunv{animation: yaochixianzi 2s;-moz-animation: yaochixianzi 2s;	/* Firefox */-webkit-animation: yaochixianzi 2s;	/* Safari 和 Chrome*/animation-iteration-count:5;animation-delay:2s;animation-fill-mode: backwards;/*animation-direction:alternate;*//*动画应该轮流反向播放。*/ }
+.danshi{animation: yaochixianzi 2s;-moz-animation: yaochixianzi 2s;	/* Firefox */-webkit-animation: yaochixianzi 2s;	/* Safari 和 Chrome*/animation-iteration-count:8;animation-delay:20s;animation-fill-mode: backwards;/*animation-direction:alternate;*//*动画应该轮流反向播放。*/ }
+.yaoxiangu{animation: yaochixianzi 2s;-moz-animation: yaochixianzi 2s;	/* Firefox */-webkit-animation: yaochixianzi 2s;	/* Safari 和 Chrome*/animation-iteration-count:8;animation-delay:50s;animation-fill-mode: backwards;/*animation-direction:alternate;*//*动画应该轮流反向播放。*/ }
+
+.shoupantao{
+	position:absolute; top:0px; left:0;
+	animation: shouPantao 2s;
+	-moz-animation: shouPantao 2s;	/* Firefox */
+	-webkit-animation: shouPantao 2s;	/* Safari 和 Chrome */
+	/*animation-direction: alternate;*//*动画应该轮流反向播放。*/
+}
+.caijingshi{
+	position:absolute; top:0px; left:0;
+	animation: caiJingshi 2s;
+	-moz-animation: caiJingshi 2s;	/* Firefox */
+	-webkit-animation: caiJingshi 2s;	/* Safari 和 Chrome */
+	/*animation-direction: alternate;*//*动画应该轮流反向播放。*/
+}
+.caizhenzhu{
+	position:absolute; top:0px; left:0;
+	animation: caiZhenzhu 2s;
+	-moz-animation: caiZhenzhu 2s;	/* Firefox */
+	-webkit-animation: caiZhenzhu 2s;	/* Safari 和 Chrome */
+	/*animation-direction: alternate;*//*动画应该轮流反向播放。*/
+}
+.liandan{
+	position:absolute; top:0px; left:0;
+	animation: lianDan 2s;
+	-moz-animation: lianDan 2s;	/* Firefox */
+	-webkit-animation: lianDan 2s;	/* Safari 和 Chrome */
+	/*animation-direction: alternate;*//*动画应该轮流反向播放。*/
+}
+.caixiancao{
+	position:absolute; top:0px; left:0;
+	animation: caiXiancao 2s;
+	-moz-animation: caiXiancao 2s;	/* Firefox */
+	-webkit-animation: caiXiancao 2s;	/* Safari 和 Chrome */
+	/*animation-direction: alternate;*//*动画应该轮流反向播放。*/
+}
+
+.playercaixiancao{
+	position:absolute; bottom:80px; right:20px;
+	animation: playercaiXiancao 2s;
+	-moz-animation: playercaiXiancao 2s;	/* Firefox */
+	-webkit-animation: playercaiXiancao 2s;	/* Safari 和 Chrome */
+	/*animation-direction: alternate;*//*动画应该轮流反向播放。*/
+}
+
+
+/* 弹窗 */
+.layui-m-layerchild{ background-color: transparent!important;}
+.main_layer{ position:fixed; top:0; left:0;  width: 100%; height: 90%; padding:0; border:none; background: url(../images/main_layer.png) no-repeat transparent; background-size:100% 100%;}
+.close-btn{ width:60px; height: 60px; background: url(../images/close-btn.png) no-repeat center center;  background-size:100% 100%; position:absolute; top:10px; right:5px;}
+.virtual-bg{ z-index:1000; position:fixed; top:0; left:0;  width: 100%; height: 100%;padding:0; border:none; background: url(../images/virtual-bg.jpg) no-repeat transparent; background-size:100% 100%;}
+.jqm_main_layer{ position:fixed; top:10px; left:0;  width: 100%; height: 90%; padding:0; border:none; background: url(../images/main_layer.png) no-repeat transparent; background-size:100% 100%;}
+
+.layer_image img{ width: 100%;}
+
+.pk_dialog{ margin: 0 auto; position: relative; width: 320px; height:211px; background: url(../images/pk-bg.png) no-repeat; background-size: 100% 100%;}
+.pk_dialog .lightning-left{ position: absolute; z-index: 1; left: 0; bottom:0; background: url(../images/lightning_left.png) no-repeat; background-size: 100% 100%; width: 50%; height: 50%; animation: flash 8s; -webkit-animation: flash 8s;}
+.pk_dialog .lightning-right{ position: absolute; z-index: 1; right: 0; top:0; background: url(../images/lightning_right.png) no-repeat; background-size: 100% 100%; width: 50%; height: 50%; animation: flash 8s; -webkit-animation: flash 8s;}
+.pk_dialog .person-left{ position: absolute; z-index: 2; left:10px; top:10px; width: 102px; height: 160px; background:url(../images/nvzhu.png) no-repeat; background-size: 100% 100%; animation: slideOutRight 2s; -webkit-animation: slideOutRight 2s;}
+.pk_dialog .person-right{ position: absolute; z-index: 2; right:10px; top:10px; width: 82px; height: 160px; background:url(../images/nanzhu.png) no-repeat; background-size: 100% 100%; transform:rotateY(180deg);  -webkit-transform:rotateY(180deg); animation: slideOutLeft 2s; -webkit-animation: slideOutLeft 2s; animation-delay:2s;}

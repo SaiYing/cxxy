@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>			
+			.table_tr{ display: table; width: 100%;}
+			.table_td{ display: table-cell; width: 25%; text-align: center; line-height: 36px; overflow: hidden;}
+			.mui-scroll-wrapper{ background-color: #fff;}
+			.mui-card{ margin: 0;}
+			.mui-collapse-content p{ color: #333;}
+			.mui-collapse-content p label{  display:inline-block; width: 100px; color: #999; text-align: right;}
+			.statistics{margin: 10px; padding: 10px; border: 1px solid #FFEFBF; background-color: #FFF8DF;}
+			.statistics h4{ color:#D8A300;}
+			.norecord{ text-align: center; padding: 10px;}
+		</style>
+	</head>
+
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--<div class="statistics">
+					<h4>今日总交易量：<span id="todaygdp">正在读取中...</span></h4>
+					<h4>历史总交易量：<span id="historygdp">正在读取中...</span></h4>
+				</div>-->
+				<div class="table_tr theader">
+					<div class="table_td">日收益率</div>
+					<div class="table_td">今日增加</div>
+					<div class="table_td">收益后</div>
+					<div class="table_td">详情</div>
+				</div>
+				<div class="mui-card">
+				<ul class="mui-table-view" id="wrapper">
+					<!--<li class="mui-table-view-cell mui-collapse" id="list">
+						<a class="mui-navigate-right" href="#">
+							<div class="table_tr">
+								<div class="table_td" id="ratio">正在读取中...</div>
+								<div class="table_td" id="todayadd">正在读取中...</div>
+								<div class="table_td" id="addafter">正在读取中...</div>
+								<div class="table_td">&nbsp;</div>
+							</div>
+						</a>
+						<div class="mui-collapse-content">
+							<p><label>时间：</label><span id="time">正在读取中...</span></p>
+						</div>
+					</li>-->
+
+				</ul>
+			</div>
+				
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script>
+			$(function(){
+				var height = $(window).height()-36;
+				$('#wrapper').height(height+'px');
+				$('#wrapper').css('overflow-y','auto');
+				$.post(config.hostw+"home/Team/everyDynamic",function(data){
+					
+//					var todaygdp = data.today_count;
+//					var historygdp = data.history_count;
+					//$(".ratio").text(ratio);
+//					$("#todaygdp").text(todaygdp);
+//					$("#historygdp").text(historygdp);
+					if(data.status==0){
+						var norecord ='<div class="norecord">'+data.message+'</div>'
+						$('#wrapper').html(norecord);
+					}else if(data.status==1){
+						var count = eval(data.message).length;
+						for(var i = 0; i < count; i++){
+							var lists = '<li class="mui-table-view-cell mui-collapse" id="list'+i+'"><a class="mui-navigate-right" href="#"><div class="table_tr"><div class="table_td"><span class="ratio">正在读取中...</span></div><div class="table_td"><span id="todayadd'+i+'">正在读取中...</span></div><div class="table_td"><span id="addafter'+i+'">正在读取中...</span></div><div class="table_td">&nbsp;</div></div></a><div class="mui-collapse-content"><p><label>时间：</label><span id="time'+i+'">正在读取中...</span></p></div></li>';
+							$("#wrapper").append(lists);	
+						};
+						$.each(data.message, function(i,item) {
+							var ratio = item.today_ratio;
+							var updateCount = item.update_income;
+							var afterCount = item.after_income;
+							var time = item.create_time;
+	
+							//转化数据为用户可读性高的语言;
+							$(".ratio").text(ratio+'%');
+							$("#"+"todayadd"+i).text(updateCount);
+							$("#"+"addafter"+i).text(afterCount);
+							$("#"+"time"+i).text(time);
+	
+						});
+					}
+					
+				});
+			});
+			mui.init({
+				swipeBack: true,
+				keyEventBind: {
+					backbutton: false //关闭back按键监听
+				}				
+			});
+		</script>
+	</body>
+
+</html>

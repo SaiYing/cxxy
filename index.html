@@ -1,0 +1,764 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>修仙</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/animate.css">
+		<link rel="stylesheet" href="css/resetmui.css">
+		<link rel="stylesheet" href="css/resetindex.css">
+		<link rel="stylesheet" href="css/app.css">
+		<style>
+			/* music */
+			@-webkit-keyframes reverseRotataZ{
+			    0%{-webkit-transform: rotateZ(0deg);}
+			    100%{-webkit-transform: rotateZ(-360deg);}
+			}
+			@-webkit-keyframes rotataZ{
+			    0%{-webkit-transform: rotateZ(0deg);}
+			    100%{-webkit-transform: rotateZ(360deg);}
+			}
+			#musicControl { position:fixed;right:10px;top:150px;margin-top:0;display:inline-block;z-index:99999999}
+			#musicControl a { display:inline-block;width: 25px; height: 25px;overflow:hidden;background:url('images/mcbg.png') no-repeat;background-size:100%;}
+			#musicControl a audio{width:100%;height:56px;}
+			#musicControl a.stop { background-position:left bottom;}
+			#musicControl a.on { background-position:0px 1px;-webkit-animation: reverseRotataZ 1.2s linear infinite;}
+			#music_play_filter{width:100%;height:100%;overflow:hidden;position:fixed;top:0;left:0;z-index:99999998;}			
+			
+			.public_area{background: rgba(255,239,191,0.4);border-color:rgba(255,239,191,0.4) !important;}
+			.person-level .figure img,.player_self .zhuren img{height:80px;}
+			.operation .big-btn{font-size: 12px;color:#fff;line-height: 72px;}
+			.operation .big-btn.lh{ line-height:16px; padding:18px 15px;}
+			.nickname{font-size: 12px; width: 100px; height:16px;line-height:16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+			.level .username{font-size: 12px; height:16px;line-height:16px;}
+			.flyBird2{ position:absolute;animation: flybird2 6s;
+	-moz-animation: flybird2 6s;	/* Firefox */-webkit-animation: flybird2 6s;	/* Safari 和 Chrome */
+	animation-iteration-count: infinite;animation-delay:5s;animation-fill-mode: backwards;/*animation-direction:alternate;*//*动画应该轮流反向播放。*/}
+			.flyBird3{ position:absolute;animation: flybird3 8s;
+			-moz-animation: flybird3 8s;	/* Firefox */-webkit-animation: flybird3 8s;	/* Safari 和 Chrome */
+			animation-iteration-count:infinite;animation-delay:7s;animation-fill-mode: backwards;/*animation-direction:alternate;*//*动画应该轮流反向播放。*/ }
+			.flyBird4{ position:absolute;animation: flybird4 10s;
+			-moz-animation: flybird4 10s;	/* Firefox */-webkit-animation: flybird4 10s;	/* Safari 和 Chrome */
+			animation-iteration-count:infinite;animation-delay:10s;animation-fill-mode: backwards;/*animation-direction:alternate;*//*动画应该轮流反向播放。*/ }
+			.flyBird2 img,.flyBird4 img{width:30px;}
+			.flyBird3 img{width:20px;}		
+			.laba{position:absolute;top:145px;left:10px;z-index: 990;display: none;}
+			.laba img{width: 25px;height: 25px;}
+			.shade{width: 100%;height: 100%;background-color: rgba(0,0,0,0.6);position: absolute;top:0;left:0;z-index: 999;display: none;}
+			.notice_box{width:95%;height:80%;background-color: #fff;border-radius:5px;position: absolute; left:50%; top:50%; transform: translate(-50%,-50%); -moz-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);background: url(images/tanchukuang_bg.png) no-repeat center;background-size:100% 100%;}
+			.notice_content{width:100%;height:100%;box-sizing:border-box;padding:15% 10%;overflow: auto;}
+			.notice_title{font-size: 16px;color:#333;text-align:center;margin-bottom: 10px;}
+			.notice_con{font-size: 14px;color:#333;}
+			#chat{display:inline-block;position:absolute;top:180px;left:10px;z-index: 990;}
+      		#chat img{width: 30px;height: 30px;}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content" id="pullrefresh">
+			<!--index header-->
+			<div class="header">
+				<!--avator-->
+				<div class="avator"><a class="tap"><img src="images/avator-boder.png"></a></div>
+				<!--property-->
+				<div class="property">
+					<div class="spar" id="jsCount">正在读取...</div>
+					<div class="aquamarine" id="ljsCount">正在读取...</div>
+				</div>
+				<!--level-->
+				<div class="level">
+					<div class="nickname">昵称:<span id="nickID">正在读取...</span></div>
+					<div class="username" id="bhID">正在读取...</div>
+					<div class="grade" id="userLevel" style="margin-left: -15px;">正在读取...</div>
+				</div>
+				<!--entrance-->
+				<div class="entrance">
+					<a class="tap choujiang"></a>
+					<a class="tap shangdian"></a>
+					<a class="tap tuandui"></a>
+					<a class="tap shangcheng"></a>
+				</div>
+			</div>
+			<!--index header end-->
+			<!--公告-->
+			<div class="public_area">
+				<marquee scrollAmount="2" id="notice"></marquee>
+			</div>
+			<div class="laba">
+				<img src="images/laba.png"/>
+			</div>
+			<!--公告 end-->
+			<a id="chat">
+		        <img src="images/chat.png"/>
+		   </a>
+			<!--index body-->
+			<div class="xxindex-body">
+				<!--飞鸟-->
+				<div class="flyarea">
+					<div class="flyBird"><img src="images/bird.png"></div>
+					<div class="flyBird2"><img src="images/bird.png"></div>
+					<div class="flyBird3"><img src="images/bird.png"></div>
+				</div>
+				<div class="xxmain">
+					<div class="person-level">
+						<div id="hero5" class="figure yaochixianzi"><img src="images/yaochixianzi.png"></div>
+						<div id="hero3" class="figure caikuangjingling"><img src="images/caikuangjingling.png"></div>
+						<div id="hero1" class="figure caizhunv"><img src="images/caizhunv.png"></div>						
+						<div id="hero2" class="figure danshi"><img src="images/danshi.png"></div>
+						<div id="hero4" class="figure yaoxiangu"><img src="images/yaoxiangu.png"></div>
+					</div>
+					<div class="player_self">
+						<div class="zhuren"><img src="images/nanzhu.png" id="player"></div>
+					</div>
+				</div>
+			</div>
+			<!--index body end-->
+			<!--index operation-->
+			<div class="operation">
+				<div class="hero_link">
+					<a id="op5" class="tap big-btn text-yaochixianzi lh" style="display: none;"><!--<img src="images/text-yaochixianzi.png">-->瑶池仙子</a>
+					<a id="op3" class="tap big-btn text-caikuangjingling lh" style="display: none;"><!--<img src="images/text-caikuangjingling.png">-->采矿精灵</a>
+					<a id="op1" class="tap big-btn text-caizhunv lh" style="display: none;"><!--<img src="images/text-caizhunv.png">-->采珠女</a>
+					<a id="op2" class="tap big-btn text-danshi" style="display: none;"><!--<img src="images/text-danshi.png">-->丹师</a>
+					<a id="op4" class="tap big-btn text-yaoxiangu lh" style="display: none;"><!--<img src="images/text-yaoxiangu.png">-->药仙姑</a>
+				</div>
+				<div class="player_link">
+					<a class="tap big-btn text-beibao"><!--<img src="images/text-beibao.png">-->背包</a>
+					<a class="tap big-btn text-gerenrenwu lh"><!--<img src="images/text-gerenrenwu.png">-->个人任务</a>
+					<a class="tap big-btn text-gerenziliao lh"><!--<img src="images/text-gerenziliao.png">-->英雄殿堂</a>
+					<a class="tap big-btn text-fankui"><!--<img src="images/text-fankui.png">-->反馈</a>
+					<a class="tap big-btn text-pk"><!--<img src="images/text-pk.png">-->PK</a>
+				</div>
+				<a class="tap big-btn hero"><img src="images/text-hero.png"></a>
+				<a class="tap big-btn player"><img src="images/text-player.png"></a>				
+			</div>	
+			<!--index operation end-->
+			<audio id="Caikuangjingling_action" src="media/caikuangjingling_action.mp3" preload="auto">您的设备不支持 audio 标签。</audio>
+			<audio id="Yaochixianzi_action" src="media/yaochixianzi_action.mp3" preload="auto">您的设备不支持 audio 标签。</audio>
+			<audio id="Caizhunv_action" src="media/caizhunv_action.mp3" preload="auto">您的设备不支持 audio 标签。</audio>
+			<audio id="Danshi_action" src="media/danshi_action.mp3" preload="auto">您的设备不支持 audio 标签。</audio>
+			<audio id="Yaoxiangu_action" src="media/yaoxiangu_action.mp3" preload="auto">您的设备不支持 audio 标签。</audio>
+			<audio id="PK" src="media/pk.mp3" preload="auto">您的设备不支持 audio 标签。</audio>
+		</div>
+		<span id="musicControl">
+		    <a id="mc_play" class="on" onclick="play_music();">
+		        <audio id="Bg_main" loop="loop" autoplay="autoplay">
+		            <source src="media/music_bg_main.mp3" type="audio/mpeg">
+		        </audio>
+		    </a>
+		</span>
+		<div class="shade">
+			<div class="notice_box">
+				<div class="notice_content">
+					<p class="notice_title" id="notice_title"></p>
+					<p class="notice_con" id="notice_con"></p>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="plugs/layer_mobile/layer.js"></script>
+		<script src="js/config.js"></script>
+		<script src='https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js'></script>
+		<script>
+			mui.plusReady(function(){
+				var McotHeight =  plus.display.resolutionHeight-120-22;// 声明 McotHeight变量为窗口的高度
+				$(".xxindex-body").height(McotHeight+'px');//将窗口的高度动态给.xxindex-body
+				$(".xxmain").height(McotHeight+'px');//将窗口的高度动态给.xxmain	
+			});
+			$(function(){					
+										
+					postheroInfo();
+					notice();
+					$.post(config.hostw+'home/Index/index',function(data){
+						var bhId = data.user.bh_id;
+						// 连接服务端
+					    var socket = io(config.hostz+':2120');
+					    // 连接后登录
+					    socket.on('connect', function(){
+					    	socket.emit('login', bhId);
+					    });
+					    // 后端推送来消息时
+					    socket.on('new_msg', function(msg){
+					    	var content= JSON.parse(msg);
+					    	$("#notice").text(content.content);
+					    	$("#jsCount").text(content.js_count);
+					    	$("#ljsCount").text(content.ljs_count);
+					    	$("#nickID").text(content.user_nickname);
+					    });
+					    // 后端推送来在线数据时
+					    socket.on('update_online_count', function(online_stat){
+					        $('#online_box').html(online_stat);
+					    });
+					});
+				 
+			});
+			$.ajaxSetup ({cache:false});
+			mui.init({
+				gestureConfig:{
+				   tap: true, //默认为true
+				   doubletap: true, //默认为false
+				   longtap: true, //默认为false
+				   swipe: true, //默认为true
+				   drag: true, //默认为true
+				   hold:false,//默认为false，不监听
+				   release:false//默认为false，不监听
+				},
+			  //var UsernameStoreDate = window.localStorage? localStorage.getItem("UserName"): Cookie.read("UserName");
+			  //alert(UsernameStoreDate);
+			  preloadPages:[{
+			      url:'templates/tuandui.html',
+			      id:'tuandui'
+			    },{
+			      url:'templates/shop/main.html',
+			      id:'main'
+			    }
+			    ]
+			});
+			function postheroInfo(){
+				
+				//根据用户登录的session获取该用户名下的英雄信息
+
+					$.post(config.hostw +'home/Index/index?'+parseInt(Math.random()*100000),function(data){	
+						//获取玩家信息	
+						var userLevel = data.user.user_level;
+						var bhId = data.user.bh_id;
+						GBhId = data.user.bh_id;
+						GnickID = data.user.user_nickname;
+						Gisactive = data.user.is_active;
+						var jsCount = data.user.js_count;
+						var ljsCount = data.user.ljs_count;
+						var sex = data.user.sex;
+						var nickID = data.user.user_nickname;
+						var zt = data.notice.zt;			
+						if(zt==1){	
+							var title1 = data.notice.content.title;
+							var content1 = data.notice.content.content;
+							$(".laba").css("display","block");
+						}else if(zt==0){
+							$(".laba").css("display","none");
+						}
+						$("#notice_title").text(title1);
+						$("#notice_con").text(content1);
+						/*mui("body").on("tap",".laba",function(){	
+							alert("11");					
+							$(".shade").css("display","block");
+						});
+						mui(".body").on("tap",".shade",function(){	
+							$(".shade").css("display","none");
+						});*/
+						$(".laba").click(function(){						
+							$(".shade").css("display","block");
+						});
+						$(".shade").click(function(){	
+							$(".shade").css("display","none");
+						});
+						//玩家昵称
+						$("#nickID").text(nickID);
+						//玩家编号
+						$("#bhID").text("ID:"+bhId);
+						//玩家等级
+						if(userLevel==0){
+							$("#userLevel").text("凡人");
+						}else if(userLevel==1){
+							$("#userLevel").text("仙人");
+						}else if(userLevel==2){
+							$("#userLevel").text("天仙");
+						}else if(userLevel==3){
+							$("#userLevel").text("金仙");
+						}else if(userLevel==4){
+							$("#userLevel").text("仙皇");
+						}else if(userLevel==5){
+							$("#userLevel").text("仙帝");
+						}else if(userLevel==6){
+							$("#userLevel").text("仙尊");
+						};
+						//红晶数量
+						$("#jsCount").text(jsCount);
+						//蓝晶数量
+						$("#ljsCount").text(ljsCount);
+						//根据性别判断玩家形象展示(1女2男)默认都是男的
+						if(sex==1){
+							$("#player").attr("src","images/nvzhu.png");
+							$(".avator").css("background-image","url(images/avator_nv.jpg)");
+						}
+						//遍历json数组 
+						  $.each(data.user_hero, function(i, item) { 
+						  	$("#hero"+item.hero_id).css("display","block");						  	
+						  	if(item.is_expire==1){
+						  		$("#hero"+item.hero_id).children("img").addClass("gray");
+						  	}else{
+						  		$("#op"+item.hero_id).css("display","block");
+						  	}
+						  });
+					});
+					
+			};
+			function notice(){
+				$.post(config.hostw +'home/Placard/newsList',function(data){
+					if(data.status==1){
+						$(".public_area").hide();
+					}else{
+						$("#notice").text(data.content);
+					}
+				});
+			};
+
+			//英雄做任务返回结果
+			function hreoMission(heroid,energy){
+				$.post(config.hostw+"home/Hero/hreoMission",{hero_id:heroid},function(data){
+					if(data.status==0){
+						setTimeout(function(){
+							mui.toast(data.message+energy);
+						},3500);						
+					}else{
+						mui.toast(data.message);
+					}
+				});
+			};
+			//处理从别的页面返回到此页时重新请求接口更新数据
+			window.addEventListener("refresh",function(e){
+			     postheroInfo()//获取英雄信息接口
+			});
+			//音频声明集
+			//var BgMain = document.getElementById("Bg_main");
+			var CkjlAction = document.getElementById("Caikuangjingling_action");
+			var YcxzAction = document.getElementById("Yaochixianzi_action");
+			var CznAction = document.getElementById("Caizhunv_action");
+			var DsAction = document.getElementById("Danshi_action");
+			var YxgAction = document.getElementById("Yaoxiangu_action");
+			var Pk = document.getElementById("PK");
+
+			//点击头像弹出弹窗
+			mui(".avator").on("tap",".tap",function(){
+				if ($('#mc_play').hasClass('on')){
+			        $('#mc_play audio').get(0).pause();
+			        $('#mc_play').attr('class','stop');
+			    }
+				mui.openWindow({
+				    url:'templates/setting.html',
+				    id:'setting',
+				    createNew:true//是否重复创建同样id的webview，默认为false:不重复创建，直接显示				    
+				});
+
+			});
+			//顶部入口
+			mui(".mui-content").on("tap",".choujiang",function(){
+				if ($('#mc_play').hasClass('on')){
+			        $('#mc_play audio').get(0).pause();
+			        $('#mc_play').attr('class','stop');
+			    }
+				mui.openWindow({
+				    url:'templates/choujiang_dialog.html',
+				    id:'choujiang_dialog',
+				    createNew:true
+				})
+			});
+			mui(".mui-content").on("tap",".shangdian",function(){
+				if ($('#mc_play').hasClass('on')){
+			        $('#mc_play audio').get(0).pause();
+			        $('#mc_play').attr('class','stop');
+			    }
+				mui.openWindow({
+					url:'templates/shangdian_dialog.html',
+				    id:'shangdian_dialog'
+				});
+
+			});
+			mui(".mui-content").on("tap",".tuandui",function(){
+				if ($('#mc_play').hasClass('on')){
+			        $('#mc_play audio').get(0).pause();
+			        $('#mc_play').attr('class','stop');
+			    }
+				mui.openWindow({
+					url:"templates/friend_info.html",
+					id:"friend_info"
+				});
+			});
+			mui(".mui-content").on("tap",".shangcheng",function(){
+				if ($('#mc_play').hasClass('on')){
+			        $('#mc_play audio').get(0).pause();
+			        $('#mc_play').attr('class','stop');
+			    }
+				mui.openWindow({
+					url:"templates/shop/main.html",
+					id:"main",
+					createNew:true
+				});
+			});
+			//左侧按钮效果
+			mui(".operation").on('tap','.hero',function(){
+				$(".hero_link").toggle();
+			}); 
+			mui(".mui-content").on("tap",".text-yaochixianzi",function(){
+				$(".yaochixianzi").addClass("shoupantao");
+				$(".hero_link").toggle();
+				//对应英雄请求任务结果
+				var heroId = 5;
+				var energy = "个蟠桃";
+				hreoMission(heroId,energy);
+				shoupantao();
+				if($('#mc_play').hasClass('on')){
+					YcxzAction.play();
+					//设置背景音乐停止
+					$('#mc_play audio').pause();		
+					setTimeout(function(){
+						//设置背景音乐开始
+						$('#mc_play audio').play();
+					},3000)
+				}
+
+				function shoupantao()
+				{
+				var spt = setTimeout(function(){
+					$(".yaochixianzi").removeClass("shoupantao");
+					layer.open({
+				    type: 1
+				    ,content: '<img src="images/shoupantao.png">'
+				    ,anim: 'up'
+				    ,className: 'layer_image'
+				    ,style: ''
+				  });
+				},2000)
+				}
+			});
+			mui(".mui-content").on("tap",".text-caikuangjingling",function(){
+				$(".caikuangjingling").addClass("caijingshi");
+				$(".hero_link").toggle();
+				//对应英雄请求任务结果
+				var heroId = 3;
+				var energy = "个能量宝石";
+				hreoMission(heroId,energy);
+				caijingshi();
+				if($('#mc_play').hasClass('on')){
+					CkjlAction.play();
+					//设置背景音乐停止
+					$('#mc_play audio').pause();			
+					setTimeout(function(){
+						//设置背景音乐开始
+						$('#mc_play audio').play();
+					},4000)
+				}
+				
+				function caijingshi()
+				{
+				var cjs = setTimeout(function(){
+					$(".caikuangjingling").removeClass("caijingshi");
+					layer.open({
+				    type: 1
+				    ,content: '<img src="images/caijingshi.png">'
+				    ,anim: 'up'
+				    ,className: 'layer_image'
+				    ,style: ''
+				  });
+				},2000)
+				}
+			});
+			mui(".mui-content").on("tap",".text-caizhunv",function(){
+				$(".caizhunv").addClass("caizhenzhu");
+				$(".hero_link").toggle();
+				//对应英雄请求任务结果
+				var heroId = 1;
+				var energy = "颗珍珠";
+				hreoMission(heroId,energy);
+				caizhenzhu();
+				if($('#mc_play').hasClass('on')){
+					CznAction.play();
+					//设置背景音乐停止
+					$('#mc_play audio').pause();			
+					setTimeout(function(){
+						//设置背景音乐开始
+						$('#mc_play audio').play();
+					},3000)
+				}
+
+				function caizhenzhu()
+				{
+				var czz = setTimeout(function(){
+					$(".caizhunv").removeClass("caizhenzhu");
+					layer.open({
+				    type: 1
+				    ,content: '<img src="images/caizhenzhu.png">'
+				    ,anim: 'up'
+				    ,className: 'layer_image'
+				    ,style: ''
+				  });
+				},2000)
+				}
+			});
+			mui(".mui-content").on("tap",".text-danshi",function(){
+				$(".danshi").addClass("liandan");
+				$(".hero_link").toggle();
+				//对应英雄请求任务结果
+				var heroId = 2;
+				var energy = "颗仙丹";
+				hreoMission(heroId,energy);
+				liandan();
+				if($('#mc_play').hasClass('on')){
+					DsAction.play();
+					//设置背景音乐停止
+					$('#mc_play audio').pause();			
+					setTimeout(function(){
+						//设置背景音乐开始
+						$('#mc_play audio').play();
+					},3000)
+				}
+
+				function liandan()
+				{
+				var ld = setTimeout(function(){
+					$(".danshi").removeClass("liandan");
+					layer.open({
+				    type: 1
+				    ,content: '<img src="images/liandan.png">'
+				    ,anim: 'up'
+				    ,className: 'layer_image'
+				    ,style: ''
+				  });
+				},2000)
+				}
+			});
+			mui(".mui-content").on("tap",".text-yaoxiangu",function(){
+				$(".yaoxiangu").addClass("caixiancao");
+				$(".hero_link").toggle();
+				//对应英雄请求任务结果
+				var heroId = 4;
+				var energy = "颗仙草";
+				hreoMission(heroId,energy);
+				caixiancao();
+				if($('#mc_play').hasClass('on')){
+					YxgAction.play();
+					//设置背景音乐停止
+					$('#mc_play audio').pause();		
+					setTimeout(function(){
+						//设置背景音乐开始
+						$('#mc_play audio').play();
+					},3000)
+				}
+				
+				function caixiancao()
+				{
+				var cxc = setTimeout(function(){
+					$(".yaoxiangu").removeClass("caixiancao");
+					layer.open({
+				    type: 1
+				    ,content: '<img src="images/caixiancao.png">'
+				    ,anim: 'up'
+				    ,className: 'layer_image'
+				    ,style: ''
+				  });
+				},2000)
+				}
+			});
+			//右侧按钮效果
+			mui(".operation").on('tap','.player',function(){
+				$(".player_link").toggle();
+			}); 
+			mui(".mui-content").on("tap",".text-pk",function(){
+				$(".player_link").toggle();
+				if($('#mc_play').hasClass('on')){
+					Pk.play();
+					//设置背景音乐停止
+					/*$('#mc_play audio').pause();*/
+					document.getElementById("Bg_main").pause();
+					setTimeout(function(){
+						//设置背景音乐开始
+						Pk.pause();
+						/*$('#mc_play audio').play();*/
+						document.getElementById("Bg_main").play();
+					},5000)
+				}
+				layer.open({
+				    type: 1
+				    ,content: '<div class="pk_dialog"><div class="lightning-left"></div><div class="lightning-right"></div><div class="person-left"></div><div class="person-right"></div></div>'
+				    ,anim: 'up'
+				    ,className: ''
+				    ,style: ''
+				 });
+			});
+			mui(".mui-content").on("tap",".text-fankui",function(){
+				$(".player_link").toggle();
+				$('#mc_play audio').get(0).pause();
+		        $('#mc_play').attr('class','stop');		
+				mui.openWindow({
+				    url:'templates/feedback.html',
+				    id:'feedback'
+				});
+			});
+			mui(".mui-content").on("tap",".text-gerenziliao", function(){
+				$('#mc_play audio').get(0).pause();
+		        $('#mc_play').attr('class','stop');		
+				mui.openWindow({
+					url:"templates/yxdt_dialog.html",
+					id:"yxdt_dialog",
+					createNew:true
+				});
+			});
+			mui(".mui-content").on("tap",".text-gerenrenwu", function(){
+				$(".player_link").toggle();
+				$(".zhuren").addClass("playercaixiancao");
+				$.post(config.hostw+"home/Hero/pickAmbrosia",function(data){
+					if(data.status==0){
+						setTimeout(function(){
+							mui.toast(data.message);
+						},3000);						
+					}else{
+						setTimeout(function(){
+							mui.toast(data.message);
+						},3000);
+					}
+				});
+				//此处根据性别选用男主还是女主
+				$.post(config.hostw +'home/Index/index',function(data){
+					var sex = data.user.sex;
+					if(sex==1){
+						nvzhushow();
+					}else{
+						nanzhushow();
+					};
+				});
+				function nvzhushow(){
+				var cxc = setTimeout(function(){
+					$(".zhuren").removeClass("playercaixiancao");
+					layer.open({
+					    type: 1
+					    ,content: '<img src="images/nvzhushow.png">'
+					    ,anim: 'up'
+					    ,className: 'layer_image'
+					    ,style: ''
+					  });
+				},2000)
+				};
+				function nanzhushow(){
+				var cxc = setTimeout(function(){
+					$(".zhuren").removeClass("playercaixiancao");
+					layer.open({
+					    type: 1
+					    ,content: '<img src="images/nanzhushow.png">'
+					    ,anim: 'up'
+					    ,className: 'layer_image'
+					    ,style: ''
+					  });
+				},2000)
+				}
+			});
+			mui(".mui-content").on("tap",".text-beibao",function(){
+				$(".player_link").toggle();
+				mui.openWindow({
+				    url:'templates/beibao_dialog.html',
+				    id:'beibao_dialog',
+				    createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				    show:{
+				      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+				      aniShow:"slide-in-top",//animationType,//页面显示动画，默认为”slide-in-right“；
+				      duration:100,//animationTime,//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+				      event:'titleUpdate',//页面显示时机，默认为titleUpdate事件时显示
+				      extras:{}//窗口动画是否使用图片加速
+				    }
+				});
+			});
+			//聊天
+		      mui(".mui-content").on("tap","#chat",function(){
+		      	if(Gisactive==1){
+		      		mui.openWindowWithTitle({
+		            url:encodeURI('http://chat.669407.com:55151/index.php?id='+GBhId+'&name='+GnickID),
+		            id:"http://chat.669407.com:55151"
+			        },{
+			            title:{//标题配置
+			                text:"聊天室",//标题文字
+			            },
+			            back:{//左上角返回箭头
+			                image:{
+			                    base64Data:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAb1BMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAACubimgAAAAI3RSTlMAGfUTGfQTGPMSGPIYGhgaGBsXGxcbFxwXHBccFhwWHRYdHWufDPQAAAABYktHRACIBR1IAAAAB3RJTUUH4QETEBwooeTlkQAAAJVJREFUSMft1EkSgkAQRNFGUXFWHBDBibr/HTUwD5B/48Ig1y+io7u6MqUhf5hsNEY+j5hMgZ/FJ8Xc9ovos3T96utjbfqN/Nb0O/m96Uv5g+mP8ifTn+Ur01/ka9Nf5RvTt/I309/lH6Z/yr9Mn+Q71/MT8B34K/E58Enzv8R/K98HvnF8p3lr8F7izce7lbf3kJ/lDQp9HdBhgg3PAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTAxLTE5VDE2OjI4OjQwKzA4OjAwpTDFwQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wMS0xOVQxNjoyODo0MCswODowMNRtfX0AAAAASUVORK5CYII='
+			                },
+			                click:function(){
+			                    //重写 点击返回图标时执行的回调函数，默认执行mui.back();
+			                    mui.openWindow({
+			                       url:'index.html',
+			                       id:'index'
+			                    });
+			                }
+			            }
+			        });
+		      	}else{
+		      		mui.toast('您不是付费会员');
+		      	}
+		        
+		      });
+			mui.plusReady(function() {
+				//初始化，并预加载webview模式的选项卡
+				var aniShow = "pop-in";
+				var menu = null,
+					showMenu = false;
+				var isInTransition = false;
+				var _self;
+				//只有ios支持的功能需要在Android平台隐藏；
+				if(mui.os.android) {
+					var list = document.querySelectorAll('.ios-only');
+					if(list) {
+						for(var i = 0; i < list.length; i++) {
+							list[i].style.display = 'none';
+						}
+					}
+					//Android平台暂时使用slide-in-right动画
+					if(parseFloat(mui.os.version) < 4.4) {
+						aniShow = "slide-in-right";
+					}
+				}
+				//绘制顶部图标
+				_self = plus.webview.currentWebview();
+				var titleView = _self.getNavigationbar();
+
+				if(!titleView) {
+					titleView = plus.webview.getLaunchWebview().getNavigationbar();
+				}
+
+				//开启回弹 
+//				_self.setStyle({
+//					bounce: "vertical",
+//					bounceBackground:"#efeff4"
+//				});
+
+				//绘制左上角menu图标
+				var bitmap_menu = new plus.nativeObj.Bitmap("menu");
+				bitmap_menu.loadBase64Data("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAKlBMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAABINtoqAAAADHRSTlMA/fPQ0M/e3tzs7OjgY5g4AAAAAWJLR0QAiAUdSAAAAAd0SU1FB+EBFwEbOGGUPSIAAAA2SURBVDjLY2AY9oDxDBZwCJ8EswsW4DrQ/hicgPTQZSvHAioG2h+DE5AeupyrsIDVA+0PqgEAu36BkQX5nBQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTctMDEtMjNUMDE6Mjc6NTYrMDg6MDC8FK1uAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE3LTAxLTIzVDAxOjI3OjU2KzA4OjAwzUkV0gAAAABJRU5ErkJggg==");
+				
+			
+				var _toast = false;
+	
+				mui.back = function() {
+					if(parseInt(_self.getStyle().left) > 0) {
+						closeMenu();
+						return;
+					}
+	
+					if(!_toast || !_toast.isVisible()) {
+						_toast = mui.toast('再按一次返回键退出', {
+							duration: 'long',
+							type: 'div'
+						});
+					} else {
+						plus.runtime.quit();
+					}
+				}
+			});
+
+			//音乐控制
+			function play_music(){
+			    if ($('#mc_play').hasClass('on')){
+			        $('#mc_play audio').get(0).pause();
+			        $('#mc_play').attr('class','stop');
+			    }else{
+			        $('#mc_play audio').get(0).play();
+			        $('#mc_play').attr('class','on');
+			    }
+			    $('#music_play_filter').hide();
+			    event.stopPropagation(); //阻止冒泡 
+			};
+		</script>
+	</body>
+
+</html>

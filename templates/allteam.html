@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			.mui-scroll-wrapper{ background-color: #fff;}
+			.statistics{margin: 10px; padding: 10px; border: 1px solid #FFEFBF; background-color: #FFF8DF;}
+			.statistics h4{ color:#D8A300;}
+		</style>
+	</head>
+
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="statistics">
+					<h4>整个团队总人数：<span id="count">正在读取中...</span></h4>
+				</div>				
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script>
+			$(function(){
+				$.post(config.hostw+"home/Team/countTeam",function(data){
+					if(data.status==1){
+						var allcount = data.count;
+						$("#count").text(allcount);
+						
+					}					
+				});
+			});	
+			mui.init({
+			});
+		</script>
+	</body>
+
+</html>

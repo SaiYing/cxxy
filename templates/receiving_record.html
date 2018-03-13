@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/resetmui.css" rel="stylesheet" />
+		<style>			
+			.table_tr{ display: table; width: 100%;}
+			.table_td{ display: table-cell; width: 25%; text-align: center; line-height: 36px; overflow: hidden;}
+			.mui-scroll-wrapper{ background-color: #fff;}
+			.mui-card{ margin: 0;}
+			.mui-collapse-content p{ color: #333;}
+			.mui-collapse-content p label{  display:inline-block; width: 100px; color: #999; text-align: right;}
+			.statistics{margin: 10px; padding: 10px; border: 1px solid #FFEFBF; background-color: #FFF8DF;}
+			.statistics h4{ color:#D8A300;}
+			.red{ color: #8B0000;}
+			.yellow{ color: #D8A300;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">接收记录</h1>
+		</header>
+		<div class="mui-content">
+		    <!--出让记录表格-->
+			    <!--<div class="statistics">
+					<h4>今日总交易量：998898</h4>
+					<h4>历史总交易量：8998898</h4>
+				</div>-->
+				<div class="table_tr theader">
+					<div class="table_td">出让方</div>
+					<div class="table_td">类型</div>
+					<div class="table_td">状态</div>
+					<div class="table_td">&nbsp;</div>
+				</div>
+				<div class="mui-card">
+				<ul class="mui-table-view" id="wrapper"> 
+					<!--<li class="mui-table-view-cell mui-collapse" id="list">
+						<a class="mui-navigate-right" href="#">
+							<div class="table_tr">
+								<div class="table_td"><span id="payID">正在读取中...</span></div>
+								<div class="table_td"><span id="jsType">正在读取中...</span></div>
+								<div class="table_td"><span id="tradeStatus">正在读取中...</span></div>
+								<div class="table_td">&nbsp;</div>
+							</div>
+						</a>
+						<div class="mui-collapse-content">
+							<p><label>序号：</label><span id="xid">正在读取中...</span></p>
+							<p><label>接收之前金额：</label><span id="beforeCount">正在读取中...</span></p>
+							<p><label>接收数量：</label><span id="tradenum">正在读取中...</span></p>
+							<p><label>接收之后金额：</label><span id="afterCount">正在读取中...</span></p>
+							<p><label>手续费：</label><span id="trade_fee">正在读取中...</span></p>
+							<p><label>接收时间：</label><span id="time">正在读取中...</span></p>
+							<p><label>说明：</label><span id="note">正在读取中...</span></p>
+							<p><label>操作：</label><button id="btn" type="button" class="mui-btn mui-btn-primary">确认接收</button></p>
+						</div>
+					</li>-->
+
+				</ul>
+			</div>
+			<!--出让记录 end-->
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$.post(config.hostw+"home/Trade/accept_trade_log",function(data){
+					if(data.status==0){
+						mui.toast('暂无记录');
+					}else if(data.status==1)
+					{
+					var count = eval(data.message).length;
+					for(var i = 0; i < count; i++){
+						var list = '<li class="mui-table-view-cell mui-collapse" id="list'+i+'"><a class="mui-navigate-right" href="#"><div class="table_tr"><div class="table_td"><span id="payID'+i+'">正在读取中...</span></div><div class="table_td"><span id="jsType'+i+'">正在读取中...</span></div><div class="table_td"><span id="tradeStatus'+i+'">正在读取中...</span></div><div class="table_td">&nbsp;</div></div></a><div class="mui-collapse-content"><p><label>序号：</label><span id="xid'+i+'">正在读取中...</span></p><p><label>接收之前金额：</label><span id="beforeCount'+i+'">正在读取中...</span></p><p><label>接收数量：</label><span id="tradenum'+i+'">正在读取中...</span></p><p><label>接收之后金额：</label><span id="afterCount'+i+'">正在读取中...</span></p><p><label>手续费：</label><span id="trade_fee'+i+'">正在读取中...</span></p><p><label>出让时间：</label><span id="time'+i+'">正在读取中...</span></p><p><label>说明：</label><span id="note'+i+'">正在读取中...</span></p><p><label>操作：</label><button id="btn'+i+'" type="button" class="mui-btn mui-btn-primary">确认接收</button></p></div></li>';
+						$("#wrapper").append(list);	
+					};
+					$.each(data.message, function(i,item) {
+						var id = item.id;
+						var pay_name = item.pay_name;
+						var accept_name = item.accept_name;
+						var before_count = item.before_accept;
+						var update_count = item.update_count;
+						var after_count = item.after_accept;
+						var create_time = item.create_time;
+						var note = item.note;
+						var status = item.status;
+						var charge = item.charge;
+						var dataType = item.data_type;
+						
+						//转化数据为用户可读性高的语言;
+						//晶石类型
+						if(dataType=='hjzr'){
+						  	var dataTypetransfer="红晶"
+						}else if(dataType=='ljzr'){
+							var dataTypetransfer="蓝晶"
+						}else if(dataType=='xjzr'){
+							var dataTypetransfer="仙晶"
+						};
+						//状态
+						if(status==0){
+							var statustransfer="<span class='red'>确认收到</span>";
+							var operbtn="确认收到";
+						}else if(status==1){
+							var statustransfer="<span class='yellow'>待对方确认</span>";
+							$("#"+"btn"+i).css("display","none");
+						}else if(status==2){
+							var statustransfer="交易完成";
+							$("#"+"btn"+i).css("display","none");
+						};
+						//$('#"+"list'+i);
+						$("#"+"payID"+i).text(pay_name);
+						$("#"+"jsType"+i).text(dataTypetransfer);
+						$("#"+"tradeStatus"+i).html(statustransfer);
+						$("#"+"xid"+i).text(id);
+						$("#"+"beforeCount"+i).text(before_count);
+						$("#"+"tradenum"+i).text(update_count);
+						$("#"+"afterCount"+i).text(after_count);
+						$("#"+"trade_fee"+i).text(charge);
+						$("#"+"time"+i).text(create_time);
+						$("#"+"note"+i).text(note);
+						$("#"+"btn"+i).text(operbtn);
+						//确认收到
+						$("#"+"btn"+i).on('click',function(){
+							$.post(config.hostw+'home/Trade/confirmjs',{id:id},function(data){
+								if(data.status==1){
+									mui.toast(data.message);
+									setTimeout(function(){
+									  mui.confirm('是否要返回背包？','信息确认',['取消','确认'],function (e) {
+									  	if(e.index==0){
+									  		//获得界面的webview
+							                var receivingRecord = plus.webview.getWebviewById('receiving_record');
+							                //触发界面的自定义事件（refresh）,从而进行数据刷新
+							                mui.fire(receivingRecord, 'refresh');
+									  	}else if(e.index==1){
+									  		mui.openWindow({
+									  			url:'beibao_dialog.html',
+									  			id:'beibao_dialog',
+									  			createNew:true
+									  		});
+									  	}
+									  },'div');
+									},2000);
+								}else{
+									mui.toast('操作失败');
+								}
+							});
+						});
+						
+					});
+					}
+				});
+				
+			});
+			mui.init();
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<style>
+			.title{ padding: 10px; color: #fff;}
+			.mui-slider-item img{ height: 214px; width: 100%;}			
+			.bigBox{ width: 100%; position:relative;}
+			.smallBox{ overflow: hidden;}
+			.smallBox .small_box{ width: 50%;margin:0px; padding:0px; float:left;}
+			.smallBox .small_box .shopping_show{ margin: 10px; background-color: #fff; }
+			.smallBox .small_box a{ display: block; color: #666;}
+			.smallBox .small_box a img{ width: 100%;}
+			.smallBox .small_box a p{ background-color: #fff; margin: 0; padding: 0 10px; line-height: 30px; height: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+			.mui-icon-bars:before{content:""}
+		</style>
+	</head>
+
+	<body>
+ <!-- 主界面不动、菜单移动 -->
+ <!-- 侧滑导航根容器 -->
+ <div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+   <!-- 菜单容器 -->
+   <aside class="mui-off-canvas-right" id="offCanvasSide">
+     <div class="mui-scroll-wrapper">
+       <div class="mui-scroll">
+         <!-- 菜单具体展示内容 -->
+         <div class="title">商品分类</div>
+         <ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted" id="menuwrapper">
+				<!--<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						Item 1
+					</a>
+				</li>
+-->
+
+			</ul>
+       </div>
+     </div>
+   </aside>
+   <!-- 主页面容器 -->
+   <div class="mui-inner-wrap">
+     <!-- 主页面标题 -->
+     <header class="mui-bar mui-bar-nav">
+     	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+       	<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide"></a>
+       	<h1 class="mui-title">商品列表</h1>
+     </header>
+     <div class="mui-content mui-scroll-wrapper">    	
+       <div class="mui-scroll">
+         <!-- 主界面具体展示内容 -->
+       <!--产品列表-->
+       <div class="bigBox">
+            <div class="smallBox" id="wrapper">
+			    <!--<div class="small_box">
+			    	<a class="shopping_show" href="project.html">
+	                    <img src="../../images/cbd.jpg">
+	                    <p>三星S7 - 32G版 SM-9300</p>
+	                    <p><strong>价格:4666元</strong></p>
+                    </a>
+                </div>
+-->
+            </div>
+       </div>
+       <!--产品列表 end-->
+		</div>
+     </div>  
+     <div class="mui-off-canvas-backdrop"></div>
+   </div>
+ </div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/config.js"></script>
+		<script src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" charset="utf-8"> 
+		//mui初始化
+			mui.init({
+				//mui("#scroll").scroll();		
+			});
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var fenleiid = self.leibieid;
+				mui.post(config.hostw+"home/Shop/listProject",{pid:fenleiid},function(data){
+					if(data.status==1){
+						//商品列表
+						var count = eval(data.shop).length;
+						for(var i = 0; i < count; i++){
+							var lists = '<div class="small_box"><a class="shopping_show" id="goodsurl'+i+'"><img src="../../images/cbd.jpg" id="imgurl'+i+'"><p id="title'+i+'">正在读取中...</p><p><strong>价格:<span id="nowprice'+i+'">正在读取中...</span>元</strong></p></a></div>';
+							$("#wrapper").append(lists);	
+						};
+						$.each(data.shop, function(i,item) {
+							var id = item.id;
+							var pid = item.pid; 
+							var name = item.name;
+							var title = item.title;
+							var content = item.content;
+							var oldPrice = item.old_price;
+							var price = item.price;
+							var zt = item.zt;
+							var imagepath = item.imagepath;
+							var addtime = item.addtime;	
+							//转化数据为用户可读性高的语言;							
+							$("#"+"goodsurl"+i);
+							$("#"+"imgurl"+i).attr("src",config.hostw+imagepath);
+							$("#"+"title"+i).text(title);
+							$("#"+"nowprice"+i).text(price);
+							mui("#wrapper").on("tap","#"+"goodsurl"+i,function(){
+								mui.openWindow({
+									url:"project.html" ,
+									id:"project",
+								    extras:{
+											goodsid:id
+											}
+								})
+							})
+						});
+					}
+				});
+			});
+			(function($){
+			    $(".mui-scroll-wrapper").scroll({
+			        bounce: true,//滚动条是否有弹力默认是true
+			        indicators: false, //是否显示滚动条,默认是true
+			    }); 
+			})(mui);
+		</script>
+	</body>
+
+</html>

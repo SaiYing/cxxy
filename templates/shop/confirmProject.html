@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../../css/mui.min.css">
+    <script type="text/javascript" >
+        function ReImgSize(){
+            for (j=0;j<document.images.length;j++)
+            {
+                document.images[j].width=(document.images[j].width>420)?"420":document.images[j].width;
+            }
+        }
+    </script>
+    <style>
+.bannerBox{position:relative; margin-top:10px;}
+.image{overflow:hidden; }
+.image img{ width: 100%;}
+.towNav{width:100%; height:auto;}
+.towNav h1{font-size:28px;line-height:50px;}
+.towNav .text{width:36px; border-radius:6px;margin-left:6px;height:22px;}
+.towNav .bu{height:9px;weidth:9px; border-radius:4px;margin-left:6px;}
+.towNav dl{/* background-color:rgba(255,255,255,0.5); */}
+.towNav p{ font-family:"宋体";line-height:30px;font-size:14px;}
+.topp{padding-top:16px;}
+.fenjie{width:300px;overflow:hidden;padding-top:6px;padding-bottom:36px;}
+.towNav dt{margin-top:99px;}
+.towNav dt span{margin-top:12px;}
+.towNav dt .butt{margin-top:0;}
+.towNav dd{margin-left:26px;margin-right:auto;margin-top:99px;}
+.towNav dd span{padding:16px;background-color:#999;margin-left:36px;padding-left:66px;padding-right:66px;}
+.hBox{margin-top:0px;margin-bottom:16px; height: 30px; line-height: 30px;}
+.hBox h1{font-size:18px; line-height: 30px; height: 30px;}
+.content p{margin-left:19px;margin:12px;}
+.towNav h2{font-size:18px;font-weight:normal;}
+.duo{ border:1px solid #F00;padding:6px;font-size:16px;line-height:26px; border-radius:6px; margin: 5px 0; text-align: center;background-color: #F00;color:#fff;}
+.content h3{font-size:16px;}
+.mui-content-padded{ line-height: 36px;}
+    </style>
+
+
+</head>
+
+<body>
+ <header class="mui-bar mui-bar-nav">
+	 <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	 <h1 class="mui-title">确认订单</h1>
+ </header>
+<div class="mui-content" >
+    <div class="bannerBox">
+        <div class="towNav">
+           <div class="image">
+               <img id="shopimage" src="">
+          </div>
+         <div class="mui-content-padded">
+                <h2 id="shopname">正在读取...</h2>
+                <!--<div>原价：<del style="color:#DDD;">￥<empty name="arr.old_price" id="old_price">{$arr.price}<else/>{$arr.old_price}</empty></del></div>-->
+                <div>价格：<b style="color:red;" id="price">正在读取...</b></div>                
+                <form>
+                	<div>
+                	<span>数量 :</span>
+                    <span id="shopnum" style="color:#de081f;">正在读取...</span>
+                    </div>
+                </form>
+                <!-- b</dt> -->
+                <!--<div class="buy_class">
+                	需支付购物券 : {$sumPrice}
+                     <dl>现金余款 : {$sumPrice/2}</dl> 
+                </div>-->
+                <div >收货地址：<input name="address" type="text" id="address" value=" "></div> <br>
+                <div class="duo" onclick="addOrderform()">确认购买</div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="contentBox">
+        <div class="hBox">
+            <h1 style="padding-left: 10px;">产品详情</h1>
+        </div>
+        <div class="content">
+            <h3 style="padding-left:10px;">{$arr.title}</h3>
+            <p>{$arr.content}</p>
+        </div>
+    </div>-->
+</div>
+</div>
+
+<script src="../../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+  function addOrderform(){
+    //location.href = '__CONTROLLER__/addOrderform/id/{:I('get.id')}/count/{:I('get.count')}/address/'+address;
+  }
+</script>
+<script>
+    $(function(){
+                $(".bannerBox img").hide().eq(0).show()
+                $(".yuanBox span").removeClass(".yuanBox current").eq(0).addClass(".yuanBox current")
+                var n=0
+                function move(){
+                    if(n<$(".bannerBox img").length-1){
+                        n=n+1}
+                    else{n=0}
+
+                    $(".bannerBox img").hide().eq(n).show()
+                    $(".yuanBox span").removeClass(".yuanBox current").eq(n).addClass(".yuanBox current")
+                }
+                t=setInterval(move,1500)
+                $(".bannerBox").mouseenter(function(){
+                    clearInterval(t)
+                }).mouseleave(function(){
+                            t=setInterval(move,1500)
+                        }
+
+                )
+                $(".yuanBox span").mouseenter(
+                        function(){
+                            n=$(this).index()
+                            $(".bannerBox img").hide().eq(n).show()
+                            $(".bannerBox span").removeClass(".yuanBox current")
+                            $(this).addClass(".yuanBox current")
+                            clearInterval(ting)
+
+
+                        }
+                )
+            }
+    )
+</script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/config.js"></script>
+<script>
+	mui.init({
+	});
+	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		var shopid2 = self.shopid;
+		var shopnum2 = self.shopnum;
+		mui.post(config.hostw+'home/Shop/project',{id:shopid2},function(data){
+				if(data.status==1){
+					var shopimgurl = data.shop.imagepath;
+					$("#shopimage").attr("src",config.hostw+shopimgurl);					
+				}
+			})
+		mui.post(config.hostw+"home/Shop/confirmProject",{id:shopid2,count:shopnum2},function(data){			
+			if(data.status==0){
+				var name = data.map.name;
+				var user = data.map.user;
+				var time = data.map.time;
+				var hj = data.map.sumHjs;
+				var lj = data.map.sumLjs;	
+				$("#shopname").text(name);
+				$("#shopnum").text(shopnum2);
+				$("#price").text(hj+'红晶'+" "+lj+'蓝晶');
+			}
+		});
+		mui(".towNav").on("tap",".duo",function(){
+			var address = document.getElementById("address").value;
+			$.post(config.hostw+"home/Shop/addOrderform",{id:shopid2,nums:shopnum2,address:address},function(data){
+				if (address==" ") {
+					mui.toast("请输入地址！");
+				} else{
+					if(data.status==0){
+						mui.toast(data.message );	
+					}else if(data.status==1){
+						mui.toast("请输入商品总数");	
+					}else if(data.status==2){
+						mui.toast("请选择商品");	
+					}else if(data.status==3){
+						mui.toast("晶石数量不足");	
+					}else if(data.stataus==4){
+						mui.toast("提交失败，请重新提交订单商品");	
+					}
+				}
+				
+										
+			})
+		});
+	});	
+
+	
+</script>
+</body>
+</html>

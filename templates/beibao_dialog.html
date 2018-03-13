@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/resetmui.css">
+		<link rel="stylesheet" href="../css/app.css">
+		<style>
+			#hj_img{ background-image: url(../images/hj.png);}
+			#lj_img{ background-image: url(../images/lj.png);}
+			#xj_img{ background-image: url(../images/xj.png);}
+			#xg_img{ background-image: url(../images/xg.png);}
+			#czn_img{ background-image: url(../images/czn_img.png);}
+			#ds_img{ background-image: url(../images/ds_img.png);}
+			#ckjl_img{ background-image: url(../images/ckjl_img.png);}
+			#yxg_img{ background-image: url(../images/yxg_img.png);}
+			#ycxz_img{ background-image: url(../images/ycxz_img.png);}
+			.myHero .list{ display: none;}
+			.myHero .cot{ padding: 20px; font-size: .8rem;}
+			.xuetangBtn{display:inline-block;width:100%;height:65px;background: url(../images/xuetang.png) no-repeat  left top;background-size: 100% 100%;border:none;}
+			.cot_beibao .list {padding: 10px 0 0;}
+			.shade{width: 100%;height: 100%;background-color: rgba(0,0,0,0.6);position: absolute;top:0;left:0;z-index: 999999;display:none;}
+			.notice_box{width:90%;height:40%;background-color: #fff;border-radius:5px;position: absolute; left:50%; top:50%; transform: translate(-50%,-50%); -moz-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);background: url(../images/tanchukuang_bg.png) no-repeat center;background-size:100% 100%;}
+			.notice_content{width:100%;height:100%;box-sizing:border-box;padding:15%;overflow: auto;}
+			.notice_con{font-size: 14px;color:#333;}
+		</style>
+	</head>
+
+	<body>
+	<div data-role="page" data-dialog="true">
+		<div role="main" class="ui-content">
+			<div class="virtual-bg">
+				<div class="jqm_main_layer">
+					<a class="close-btn mui-action-back"></a>
+					<div class="xxtabs">
+						<div class="navbar">
+							<ul>
+								<li>背包</li>
+							</ul>
+						</div>
+						<div class="xxtabs_content">
+							<div class="cot_beibao">
+								<div class="js_box">
+									<div class="btn-log">
+										<div class="btn-box"><a class="xxbtn" id="transferRecord">出让记录</a></div>
+										<div class="btn-box"><a class="xxbtn" id="receivingRecord">接收记录</a></div>
+									</div>
+									<div class="list">
+										<div class="avator" id="hj_img"><img src="../images/avator-boder.png"></div>
+										<div class="text">红晶</div>
+										<div class="text" id="hjCount">正在读取...</div>
+										<div class="btn-area">
+											<a class="xxbtn" id="hjdxzrBtn">定向出让</a><a class="xxbtn" id="hjzhuanxjBtn">转仙晶</a>
+										</div>
+									</div>
+									<div class="list">
+										<div class="avator" id="lj_img"><img src="../images/avator-boder.png"></div>
+										<div class="text">蓝晶</div>
+										<div class="text" id="ljCount">正在读取...</div>
+										<div class="btn-area">
+											<a class="xxbtn" id="ljdxzrBtn">定向出让</a><a class="xxbtn" style="background-image:none;"></a>
+										</div>
+									</div>
+									<div class="list">
+										<div class="avator" id="xj_img"><img src="../images/avator-boder.png"></div>
+										<div class="text">仙晶</div>
+										<div class="text" id="xjCount">正在读取...</div>
+										<div class="btn-area">
+											<a class="xxbtn" id="xjdxzrBtn">定向出让</a>
+											<a class="xxbtn" style="background-image:none;"></a>
+										</div>
+									</div>
+								</div>
+								</div>
+							</div>
+							<div  style="width:114px; margin: 0 auto;"><button id="CxxtBtn" type="button" class="xuetangBtn"></button></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="shade">
+		<div class="notice_box">
+			<div class="notice_content">
+				<p class="notice_con" id="notice_con"></p>
+			</div>
+		</div>
+	</div>
+	<audio id="xuetang" src="media/xuetang.mp3" autoplay="autoplay">您的设备不支持 audio 标签。</audio>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script>
+			//处理从别的页面返回到此页时重新请求接口更新数据
+			window.addEventListener("refresh",function(e){
+			    location.reload(); 
+			});
+			$(function(){
+				$("#hj_img").click(function(){	
+					$("#notice_con").text("");
+					$(".shade").css("display","block");
+					$("#notice_con").text("红晶：含浓郁的天地元气，供修炼者修炼之用，可用于转换仙晶，同时每天可以增长");
+				});
+				$("#lj_img").click(function(){	
+					$("#notice_con").text("");
+					$(".shade").css("display","block");
+					$("#notice_con").text("蓝晶：仙界罕见至宝，可用于激活英雄或缴纳月费");
+				});
+				$("#xj_img").click(function(){	
+					$("#notice_con").text("");
+					$(".shade").css("display","block");
+					$("#notice_con").text("仙晶：升仙之晶，可用于购买英雄");
+				});
+				$(".shade").click(function(){	
+					$(".shade").css("display","none");
+				});
+				var sfz;
+				$.post(config.hostw +'home/Hero/knapsack',function(data){
+					if(data.status==1){
+						var Message =data.message;
+						//玩家晶石信息;
+						var hjsCount = Message.js_count;
+						var ljsCount = Message.ljs_count;
+						var xjsCount = Message.xjs_count;
+						sfz = Message.sfz;
+						$("#hjCount").text(hjsCount);
+						$("#ljCount").text(ljsCount);
+						$("#xjCount").text(xjsCount);						
+					}					
+				});
+				$("#transferRecord").on("click",function(){					
+					mui.openWindow({
+						url:"transfer_record.html",
+						id:"transfer_record",
+						createNew:true
+					});
+				});
+				$("#receivingRecord").on("click",function(){
+					mui.openWindow({
+						url:"receiving_record.html",
+						id:"receiving_record",
+						createNew:true
+					});
+					
+				});
+				$("#hjdxzrBtn").on("click",function(){
+					if(sfz==""){
+						mui.openWindow({
+							url:"sfz.html",
+							id:"sfz",
+							createNew:true
+						});
+					}else{
+						mui.openWindow({
+							url:"hjdingxiangzhuanrang.html",
+							id:"hjdingxiangzhuanrang",
+							createNew:true
+						});
+					}
+					
+				});
+				
+				$("#hjzhuanxjBtn").on("click",function(){
+					mui.openWindow({
+						url:"hjzhuanxj.html",
+						id:"hjzhuanxj",
+						createNew:true
+					});
+				});
+				$("#ljdxzrBtn").on("click",function(){
+					if(sfz==""){
+						mui.openWindow({
+							url:"sfz.html",
+							id:"sfz",
+							createNew:true
+						});
+					}else{
+						mui.openWindow({
+							url:"ljdingxiangzhuanrang.html",
+							id:"ljdingxiangzhuanrang",
+							createNew:true
+						});
+					}
+					
+				});
+				$("#xjdxzrBtn").on("click",function(){
+					if(sfz==""){
+						mui.openWindow({
+							url:"sfz.html",
+							id:"sfz",
+							createNew:true
+						});
+					}else{
+						mui.openWindow({
+							url:"xjdingxiangzhuanrang.html",
+							id:"xjdingxiangzhuanrang",
+							createNew:true						
+						});
+					}
+					
+				});
+				$("#CxxtBtn").on("click",function(){
+					mui.openWindow({
+						url:"xuetang.html",
+						id:"xuetang",
+						createNew:true						
+					});
+				});
+				
+			})
+			mui.init({
+				preloadPages:[
+				{
+			      url:'hjdingxiangzhuanrang.html',
+			      id:'hjdingxiangzhuanrang'
+			    },{
+			      url:'ljdingxiangzhuanrang.html',
+			      id:'ljdingxiangzhuanrang'
+			    },{
+			      url:'xjdingxiangzhuanrang.html',
+			      id:'xjdingxiangzhuanrang'
+			    }
+			  ]
+			});
+			
+		</script>
+	</body>
+
+</html>

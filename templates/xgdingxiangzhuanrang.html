@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/resetmui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 40%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 55%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			.mui-input-row .mui-btn{ width: auto; line-height: 1;}
+			.vercode{ position: absolute; right: 2px; top:2px;}
+			.nanzhu img, .nvzhu img{ height: 160px;}
+			
+			.mui-content{position: absolute;width: 100%;height: 100%;background: url(../images/kuang_bg.jpg) no-repeat left top;background-attachment: fixed;background-size: 100% 100%;}
+			.mui-input-group{background-color:transparent;}
+			.mui-input-group:before,.mui-input-group:after,.mui-input-row:after{height: 0 !important;}			
+			.fshoujihao{width:78.3%;height:37px;background: url(../images/input_bg.png) no-repeat  left top !important;background-size: 100% 100% !important;margin:0 auto 15px;}
+			.mui-input-row label{padding:11px 8px 11px 20px;}
+			.mui-input-row label.faccount{padding-right: 0;}
+			.fshoujihao .mui-input{float: left;}
+			.mui-input-row .mui-btn{padding: 6px 0px;margin-right: 16px;margin-top: 4px;}
+			.fconfirm_transfer{width:141px;height:58px;background: url(../images/querenzhuanrang.png) no-repeat  left top;background-size: 100% 100%;margin: 0 auto;border:none;}
+			.fnowant_transfer{width:141px;height:58px;background: url(../images/buxiangzhuanle.png) no-repeat  left top;background-size: 100% 100%;margin: 15px auto;border:none;float: inherit !important;}
+			input[type=password]{width:86%;margin: 0;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">转换</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row fshoujihao">
+					<label>物品类型</label>
+					<div class="input-transfer-text">仙果</div>
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label>可转换数量</label>
+					<div class="input-transfer-text" id="totalCount">正在读取中...</div>
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label>转换数量</label>
+					<input id='transfer_number' type="number" class="mui-input-clear mui-input" placeholder="请输入出让数量">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button id='zrbutton' class="mui-btn mui-btn-block mui-btn-primary fconfirm_transfer"></button>
+				<button id='bzrbutton' class="mui-btn mui-btn-block mui-btn-primary mui-action-back mui-pull-left fnowant_transfer"></button>
+			</div>
+
+			<!--<div class="mui-content-padded">
+				<p>注册真实可用，注册成功后的用户可用于登录，但是示例程序并未和服务端交互，用户相关数据仅存储于本地。</p>
+			</div>-->
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script>
+			$(function(){
+				$.post(config.hostw +'home/Index/index?'+parseInt(Math.random()*100000),function(data){
+					var totalCount = data.user.xg_count;
+					$("#totalCount").text(totalCount);
+				});
+			});
+			$("#zrbutton").on("click",function(){
+				var num = $("#transfer_number").val();
+				$.post(config.hostw+"home/Trade/xg_conversion",{num:num},function(data){
+					if(data.status==1){
+						mui.toast(data.message);
+						setTimeout(function(){
+							mui.confirm('要返回英雄殿堂吗？','',['不要了','要'],function (e) {
+								if(e.index==1){
+									mui.openWindow({
+										url:"yxdt_dialog.html",
+										id:"yxdt_dialog",
+										createNew:true
+									});
+								}else if(e.index==0){																					  		//获得界面的webview
+						                var xgdingxiangzhuanrang = plus.webview.getWebviewById('xgdingxiangzhuanrang.html');
+						                //触发界面的自定义事件（refresh）,从而进行数据刷新
+						                mui.fire(xgdingxiangzhuanrang, 'refresh');
+									}
+							},'div')
+						},2000);
+					}else{
+						mui.toast(data.message);
+					}
+				});
+			});
+			(function($, doc) {
+				$.init({
+					preloadPages:[
+					    {
+					    }
+					]
+				},{
+				  beforeback:function(){
+				  var  target=plus.webview.getWebviewById("beibao_dialog.html");
+				  mui.fire(target,"refresh");
+				  return true;
+				  }
+				 }
+				);
+
+				$.plusReady(function() {
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

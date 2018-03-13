@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link href="../css/resetmui.css" rel="stylesheet" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<style>
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			#noarticle{ display: none;}
+			.mui-content-bg{position: absolute;width: 100%;height: 100%;background: url(../images/artical_body.png) no-repeat left top;background-attachment: fixed;background-size: 100% 100%;overflow: auto;}
+			.artical_box{display:block;width:85%;height:519px;margin:-5px auto 10px;background: url(../images/artical_bg.png) no-repeat center;background-size:100%;padding:34px 20px 34px;overflow: auto;}
+			.artical_li{width:100%;list-style:none;border-bottom: 1px dashed #000000;padding:10px 5px 6px;font-size: 18px;color:#333333;}
+			.artical_li a{display: block;width:100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-size: 18px;color:#333333;padding-left: 8px;background: url(../images/dian.png) no-repeat left center;background-size: 5px;}
+			.xuetangBtn{display:inline-block;width:100%;height:65px;background: url(../images/xuetang.png) no-repeat  left top;background-size: 100% 100%;border:none;margin-top: 6px;}
+			.mui-table-view:after{height: 0;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">辰星学堂</h1>
+		</header>
+		<div class="mui-content mui-content-bg">
+			<!--<div class="title">辰星学堂</div>-->
+			<div  style="width:114px; margin: 0 auto;"><button id="CxxtBtn" type="button" class="xuetangBtn"></button></div>
+			<ul class="mui-table-view mui-table-view-chevron artical_box" id='xtlistwrapper'>
+				<p id="noarticle">暂无文章</p>
+			</ul>
+		</div>
+		<audio id="xuetang" autoplay="autoplay">
+			<source src="../media/xuetang.mp3" type="audio/mpeg">
+			您的设备不支持 audio 标签。
+		</audio>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/config.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
+	<script>
+		
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		$(function(){
+			mui.post(config.hostw+'home/School/ArticleList',function(data){
+				if(data.status==0){
+					//无文章
+					$("#noarticle").css('display','block');
+				}else if(data.status==1){
+					var count = eval(data.message).length;
+					//mui.toast(eval(data.message).length);
+					for(var i=0; i < count; i++){					
+						var articlelist ='<li class="artical_li" id="xtlist'+i+'"><a id="listtitle'+i+'">正在读取...</a></li>';
+						$("#xtlistwrapper").append(articlelist);
+					}
+					$.each(data.message, function(i,item) {
+						var xttitle = item.title;
+						var aid =item.id;
+						$("#"+"listtitle"+i).text(xttitle);
+						$("#"+"xtlist"+i).on('click',function(){
+							mui.openWindow({
+								url:'knowledge.html',
+								id:'knowledge',
+								extras:{
+									artcleid:aid
+								}
+							});
+						});
+					});
+				}
+			},'json');
+		})
+	</script>
+</html>

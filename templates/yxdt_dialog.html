@@ -1,0 +1,330 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/resetmui.css">
+		<link rel="stylesheet" href="../css/app.css">
+		<style>
+		<style>
+			#hj_img{ background-image: url(../images/hj.png);}
+			#lj_img{ background-image: url(../images/lj.png);}
+			#xj_img{ background-image: url(../images/xj.png);}
+			#xg_img{ background-image: url(../images/xg.png);}
+			#czn_img{ background-image: url(../images/czn_img.png);}
+			#ds_img{ background-image: url(../images/ds_img.png);}
+			#ckjl_img{ background-image: url(../images/ckjl_img.png);}
+			#yxg_img{ background-image: url(../images/yxg_img.png);}
+			#ycxz_img{ background-image: url(../images/ycxz_img.png);}
+			.cot_xxdt .list{ display: none;}
+			.cot_xxdt .cot{ padding: 20px; font-size: .8rem;}
+			.btn-area{ overflow: hidden; padding-left: 60px;}			
+			.listxg .btn-area{padding-left: 0;}
+		</style>
+	</head>
+
+	<body>
+	<div data-role="page" data-dialog="true">
+		<div role="main" class="ui-content">
+			<div class="virtual-bg">
+				<div class="jqm_main_layer">
+					<a class="close-btn mui-action-back"></a>
+					<div class="xxtabs">
+						<div class="navbar">
+							<ul>
+								<li>英雄殿堂</li>
+							</ul>
+						</div>
+						<div class="xxtabs_content">
+							<div class="cot_xxdt">																
+								<div class="list listxg" style="display:block;">
+									<div class="avator" id="xg_img"><img src="../images/avator-boder.png"></div>
+									<div class="text">仙果</div>
+									<div class="text" id="xgCount">正在读取...</div>
+									<div class="btn-area">
+										<a class="xxbtn" id="xgdxzrBtn">换红晶</a>
+									</div>
+								</div>
+								<div class="cot" id="nohashero">你还没购买英雄请去商店购买！</div>
+								<div class="list" id="hero1">
+									<div class="avator" id="czn_img"><img src="../images/avator-boder.png"></div>
+									<div class="text">采珠女</div>
+									<div class="text"> <span id="lev1">正在读取...</span>  <span id="jiazhi1" style="margin-left: 10px;">正在读取...</span></div>
+									<div class="text" id="enery1">正在读取...</div>
+									<div class="text" id="lifecycle1" style="padding-left:90px ;">正在读取...</div>
+									<div class="btn-area">
+											<a class="xxbtn" id="upBtn1">升级</a>
+											<a class="xxbtn" id="resurgenceBtn1">复活</a>
+											<a class="xxbtn" id="exchangjs1">换红晶</a>
+									</div>
+								</div>
+								<div class="list" id="hero2">
+									<div class="avator" id="ds_img"><img src="../images/avator-boder.png"></div>
+									<div class="text">丹师</div>
+									<div class="text"> <span id="lev2">正在读取...</span>  <span id="jiazhi2" style="margin-left: 10px;">正在读取...</span></div>
+									<div class="text" id="enery2">正在读取...</div>
+									<div class="text" id="lifecycle2" style="padding-left:90px ;">正在读取...</div>
+									<div class="btn-area">
+											<a class="xxbtn" id="upBtn2">升级</a>
+											<a class="xxbtn" id="resurgenceBtn2">复活</a>
+											<a class="xxbtn" id="exchangjs2">换红晶</a>
+									</div>
+								</div>
+								<div class="list" id="hero3">
+									<div class="avator" id="ckjl_img"><img src="../images/avator-boder.png"></div>
+									<div class="text">采矿精灵</div>
+									<div class="text"> <span id="lev3">正在读取...</span>  <span id="jiazhi3" style="margin-left: 10px;">正在读取...</span></div>
+									<div class="text" id="enery3">正在读取...</div>
+									<div class="text" id="lifecycle3" style="padding-left:90px ;">正在读取...</div>
+									<div class="btn-area">
+											<a class="xxbtn" id="upBtn3">升级</a>
+											<a class="xxbtn" id="resurgenceBtn3">复活</a>
+											<a class="xxbtn" id="exchangjs3">换红晶</a>
+									</div>
+								</div>
+								<div class="list" id="hero4">
+									<div class="avator" id="yxg_img"><img src="../images/avator-boder.png"></div>
+									<div class="text">药仙姑</div>
+									<div class="text"> <span id="lev4">正在读取...</span>  <span id="jiazhi4" style="margin-left: 10px;">正在读取...</span></div>
+									<div class="text" id="enery4">正在读取...</div>
+									<div class="text" id="lifecycle4" style="padding-left:90px ;">正在读取...</div>
+									<div class="btn-area">
+											<a class="xxbtn" id="upBtn4">升级</a>
+											<a class="xxbtn" id="resurgenceBtn4">复活</a>
+											<a class="xxbtn" id="exchangjs4">换红晶</a>
+									</div>
+								</div>
+								<div class="list" id="hero5">
+									<div class="avator" id="ycxz_img"><img src="../images/avator-boder.png"></div>
+									<div class="text">瑶池仙子</div>
+									<div class="text"> <span id="lev5">正在读取...</span>  <span id="jiazhi5" style="margin-left: 10px;">正在读取...</span></div>
+									<div class="text" id="enery5">正在读取...</div>
+									<div class="text" id="lifecycle5" style="padding-left:90px ;">正在读取...</div>
+									<div class="btn-area">
+											<a class="xxbtn" id="upBtn5">升级</a>
+											<a class="xxbtn" id="resurgenceBtn5">复活</a>
+											<a class="xxbtn" id="exchangjs5">换红晶</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<audio src="../media/music_bg_yxdt.mp3"  loop="loop">您的设备不支持 audio 标签。</audio>
+	</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/config.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script>			
+					
+			$(function(){
+				
+				$.post(config.hostw +'home/Hero/hero_hall',function(data){					
+					//玩家英雄信息;
+					//英雄产品换红晶
+					$("#exchangjs1").on("click",function(){
+						$.post(config.hostw +'home/Trade/conversion',{hero_id:1},function(data){
+							if(data.status==1){
+								mui.toast(data.message);
+								window.location.reload();
+							}else{
+								mui.toast(data.message);
+							}
+						});
+					});
+					$("#exchangjs2").on("click",function(){
+						$.post(config.hostw +'home/Trade/conversion',{hero_id:2},function(data){
+							if(data.status==1){
+								mui.toast(data.message);
+								window.location.reload();
+							}else{
+								mui.toast(data.message);
+							}
+						});
+					});
+					$("#exchangjs3").on("click",function(){
+						$.post(config.hostw +'home/Trade/conversion',{hero_id:3},function(data){
+							if(data.status==1){
+								mui.toast(data.message);
+								window.location.reload();
+							}else{
+								mui.toast(data.message);
+							}
+						});
+					});
+					$("#exchangjs4").on("click",function(){
+						$.post(config.hostw +'home/Trade/conversion',{hero_id:4},function(data){
+							if(data.status==1){
+								mui.toast(data.message);
+								window.location.reload();
+							}else{
+								mui.toast(data.message);
+							}
+						});
+					});
+					$("#exchangjs5").on("click",function(){
+						$.post(config.hostw +'home/Trade/conversion',{hero_id:5},function(data){
+							if(data.status==1){
+								mui.toast(data.message);
+								window.location.reload();
+							}else{
+								mui.toast(data.message);
+							}
+						});
+					});
+					
+					/*增加仙果模块。有无英雄，仙果一直存在 */
+					var xgCount = data.xg_count;
+					$("#xgCount").text(xgCount);
+					$("#xgdxzrBtn").on("click",function(){
+							$.post(config.hostw +'home/Trade/xg_conversion',function(data){
+								if(data.status==1){
+									mui.toast(data.message);
+									window.location.reload();
+								}else{
+									mui.toast(data.message);
+								}
+							});
+					});
+					if(data.hero_produce==null){
+						//mui.toast("123");
+					}else{
+						//遍历json数组 
+						$.each(data.hero_produce, function(i, item) { 						  	
+					  		$("#hero"+item.hero_id).css("display","block");
+					  		$("#nohashero").css("display","none");
+					  		//英雄等级信息;
+					  		if(item.hero_lv==1){
+					  			$("#lev"+item.hero_id).text("等级:练气");
+					  		}else if(item.hero_lv==2){
+					  			$("#lev"+item.hero_id).text("等级:筑基");
+					  		}else if(item.hero_lv==3){
+					  			$("#lev"+item.hero_id).text("等级:金丹");
+					  		}else if(item.hero_lv==4){
+					  			$("#lev"+item.hero_id).text("等级:元婴");
+					  		}else if(item.hero_lv==5){
+					  			$("#lev"+item.hero_id).text("等级:化神");
+					  		}
+						  	//英雄的产量统计
+						  	var enery = item.hero_produce;
+						  	if(item.hero_id==1){
+						  		var unit="颗珍珠"
+						  	}else if(item.hero_id==2){
+						  		var unit="颗仙丹"
+						  	}else if(item.hero_id==3){
+						  		var unit="块矿石"
+						  	}else if(item.hero_id==4){
+						  		var unit="颗仙草"
+						  	}else if(item.hero_id==5){
+						  		var unit="个蟠桃"
+						  	}
+						  	//alert(enery);
+						  	$("#enery"+item.hero_id).text("产量:"+enery+unit);
+						  	$("#jiazhi"+item.hero_id).text("价值: "+item.total_count);
+						  	$("#lifecycle"+item.hero_id).text("生命剩余天数: "+item.remainder_days+"天");
+						  	//判断是否需要复活或升级						  	
+						  	if(item.is_expire==1){
+						  		$("#upBtn"+item.hero_id).css("display","none");
+						  		$("#resurgenceBtn"+item.hero_id).css("display","block");
+						  	}else{
+						  		$("#upBtn"+item.hero_id).css("display","block");
+						  		$("#resurgenceBtn"+item.hero_id).css("display","none");
+						  	};
+						  	
+						  	//英雄升级
+							$("#upBtn"+item.hero_id).on("click",function(){
+								
+								$.post(config.hostw+'home/Hero/upLevel_condition',{hero_id:item.hero_id},function(errorcode){
+									if(errorcode.status==0){
+										mui.toast(errorcode.message);
+									}else{
+									var hero_lv = item.hero_lv;
+									$.post(config.hostw+"home/Hero/up_hero_price",{hero_lv:hero_lv},function(s){
+					  					var jsCount =s.js_count;
+					  					var ljsCount = s.ljs_count;
+					  					if(jsCount==0){
+											mui.toast(s.message);
+					  					}else if(jsCount!=0){
+					  						mui.confirm('此次升级需要消耗您'+jsCount+'个红晶和'+ljsCount+'个蓝晶','确认升级',['取消','确认'],function(e){
+							  					if(e.index==1){
+							  						//修改弹出框默认input类型为password 
+													mui.prompt('正确输入后你的晶石将扣除','请输入宝库密码','宝库密码',['取消','确认'],function(e){
+														if(e.index==1){
+															var hero_id = item.hero_id;
+															var bkPass =$(".mui-popup-input input[type=password]").val();
+															$.post(config.hostw+"home/Hero/upLevelHero",{hero_id:hero_id,bk_pass:bkPass},function(data){
+																	if(data.status==1){
+																		mui.toast(data.message);
+																		setTimeout(function(){window.location.reload()}, 1000);
+																	}else{
+																		mui.toast(data.message);
+																		setTimeout(function(){window.location.reload()}, 1000);
+																	}
+															});
+														}
+													},'div')
+													document.querySelector('.mui-popup-input input').type='password'; 			 	
+							  					};
+					  						},'div');
+						  				};
+							  		});		
+									}
+								});
+								
+							});
+	
+						  	//复活英雄
+						  	$("#resurgenceBtn"+item.hero_id).on("click",function(){
+						  		var hero_id = item.hero_id;
+						  		$.post(config.hostw+"home/Hero/hero_relive_price",{hero_id:hero_id},function(rp){
+						  			var jsCount = rp.js_count;
+						  			var ljsCount = rp.ljs_count;
+						  			if(jsCount!=""||ljsCount!=""){
+							  			mui.confirm('此次复活需要消耗您'+jsCount+'个红晶和'+ljsCount+'个蓝晶','确认复活',['取消','确认'],function(e){
+							  					if(e.index==1){
+							  					//修改弹出框默认input类型为password 
+												mui.prompt('正确输入后你的晶石将扣除','请输入宝库密码','宝库密码',['取消','确认'],function(e){
+													if(e.index==1){
+														var bkPass =$(".mui-popup-input input[type=password]").val();
+								  						$.post(config.hostw+"home/Hero/hero_relive",{js_count:jsCount,ljs_count:ljsCount,bk_pass:bkPass,hero_id:hero_id},function(s){
+											  				if(s.status==0){
+											  					//mui.toast("成功复活");
+											  					mui.toast(s.message);
+											  					setTimeout(function(){
+											  						window.location.reload();
+											  					},2000);
+											  				}else{
+											  					//mui.toast("复活失败");
+											  					mui.toast(s.message);
+											  				}
+										  				});
+										  			}
+												},'div');
+												document.querySelector('.mui-popup-input input').type='password';		
+							  					}
+							  			},'div');
+						  			};					  			
+						  		});
+								//mui.toast("稍等复活接口还没做");
+						  	});
+						});
+					}
+
+				});				
+			});
+						
+			(function($, doc) {
+				$.init({});
+				$.plusReady(function() {});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

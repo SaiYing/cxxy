@@ -1,0 +1,396 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/resetmui.css">
+		<link rel="stylesheet" href="../css/app.css">
+		<style>
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			.mui-control-content {
+				height: 150px;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img{ width: 80%;/*max-height:420px;*/}
+			.mui-slider .mui-slider-group .mui-slider-item{ text-align: center;}
+			.mui-slider-item p{ color: #fff;}
+			#hj_img{ background-image: url(../images/hj.png);}
+			#lj_img{ background-image: url(../images/lj.png);}
+			#xj_img{ background-image: url(../images/xj.png);}
+			
+			.cot_gem .list .text{height:70px;}
+			.mui-slider-item-block{position: relative;}
+			.play_btn{width:47px;height:20px;background: url(../images/xxbtn-primary.png) no-repeat center;background-size:47px 20px;line-height:20px;position: absolute;right:36px;bottom:48px;z-index: 2;}
+			.hero_by{width:102px;height:30px;background: url(../images/xxbtn-primary.png) no-repeat center;background-size:102px 30px;line-height:30px;margin: 5px auto;}
+			.listlink{display:block;color:#fff !important;margin-bottom: 10px;}
+			
+			.list1{width: 50%;margin-top:10px;text-align: center;float: left;}
+			.avator1 img{width: 60px;height: 60px;}
+			.text1{color:#fff;}
+			.mui-slider-item a{display: block;}
+		</style>
+	</head>
+
+	<body>
+	<div  class="mui-content">
+		<div role="main" class="ui-content">
+			<div class="virtual-bg">
+				<div class="jqm_main_layer">
+					<a class="close-btn" id="closeBtn"></a>
+					<div class="xxtabs">
+						<div class="custom_navbar">
+							<ul>
+								<li class="gem_active"></li>
+								<li class="hero"></li>
+							</ul>
+						</div>
+						<div class="xxtabs_content">
+							<div class="cot_gem" id="youqinglink" style="height:400px;overflow: auto;">								
+								<!--<a class="list1">
+									<div class="avator1"><img src="../images/avator-boder.png"></div>
+									<p class="text1" >百度</p>								
+								</a>-->
+							</div>
+							<div class="cot_hero" style="display: none;">
+								<!--轮播图-->
+								<div id="slider" class="mui-slider" >
+									<div class="mui-slider-group mui-slider-loop">
+										<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+										<div class="mui-slider-item mui-slider-item-duplicate mui-slider-item-block">
+											<p id="ckjl_btn" class="play_btn">音效</p>
+											<a>
+												<img src="../images/show_caikuangjingling2.png">
+												<p id="buyckjl1" class="hero_by buyckjl">购买</p>
+											</a>
+											
+										</div>
+										<!-- 第一张 -->
+										<div class="mui-slider-item">
+											<p id="czn_btn" class="play_btn">音效</p>
+											<a>
+												<img src="../images/show_caizhunv2.png">
+												<p id="buyczn" class="hero_by">购买</p>
+											</a>
+											
+										</div>
+										<!-- 第二张 -->
+										<div class="mui-slider-item">
+											<p id="ds_btn" class="play_btn">音效</p>
+											<a>
+												<img src="../images/show_danshi2.png">
+												<p id="buyds" class="hero_by">购买</p>
+											</a>
+											
+										</div>
+										<!-- 第三张 -->
+										<div class="mui-slider-item">
+											<p id="ycxz_btn" class="play_btn">音效</p>
+											<a>
+												<img src="../images/show_yaochixianzi2.png">
+												<p id="buyycxz" class="hero_by">购买</p>
+											</a>
+											
+										</div>
+										<!-- 第四张 -->
+										<div class="mui-slider-item">
+											<p id="yxg_btn" class="play_btn">音效</p>
+											<a>
+												<img src="../images/show_yaoxiangu2.png">
+												<p id="buyyxg" class="hero_by">购买</p>
+											</a>
+											
+										</div>
+										<!-- 第五张 -->
+										<div class="mui-slider-item">
+											<p id="ckjl_btn" class="play_btn">音效</p>
+											<a>
+												<img src="../images/show_caikuangjingling2.png">
+												<p id="buyckjl2" class="hero_by buyckjl">购买</p>
+											</a>
+											
+										</div>
+										<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+										<div class="mui-slider-item mui-slider-item-duplicate">
+											<p id="czn_btn" class="play_btn">音效</p>
+											<a>
+												<img src="../images/show_caizhunv2.png">
+												<p id="buyczn" class="hero_by">购买</p>
+											</a>
+										</div>
+									</div>
+									<!--<div class="mui-slider-indicator">
+										<div class="mui-indicator mui-active"></div>
+										<div class="mui-indicator"></div>
+										<div class="mui-indicator"></div>
+										<div class="mui-indicator"></div>
+									</div>-->
+								</div>
+								<!--轮播图 end-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<audio id="Yaochixianzi" src="../media/yaochixianzi.mp3" preload="auto">
+		<audio id="Caizhunv" src="../media/caizhunv.mp3" preload="auto">
+		<audio id="Danshi" src="../media/danshi.mp3" preload="auto">
+		<audio id="Caikuangjingling" src="../media/caikuangjingling.mp3" preload="auto">
+		<audio id="Yaoxiangu" src="../media/yaoxiangu.mp3" preload="auto">
+	</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script>
+			mui.plusReady(function(){
+				var McotHeight =  plus.display.resolutionHeight-100-80;// 声明 McotHeight变量为窗口的高度
+				$(".mui-slider-item a").height(McotHeight+'px');
+				$(".cot_gem").height(McotHeight+'px');
+				$(".mui-slider-item a img").height(McotHeight-40+'px');	
+			});
+			$(function(){
+				$.post(config.hostw+"home/Link/link",function(data){
+					if(data.status==1){
+						var count = data.message.length;
+						for (var i = 0; i < count; i++) {
+							var list = '<a class="list1" id="linklist'+i+'">'+
+											'<div class="avator1"><img id="link_img'+i+'" src="../images/avator-boder.png"></div>'+
+											'<p class="text1"  id="link_name'+i+'" >百度</p>'+									
+										'</a>';
+							$("#youqinglink").append(list);
+						};						
+						$.each(data.message,function(i,item){
+							var link_pic = item.link_pic;
+							var link_name = item.link_name;
+							var link_address = item.link_address;
+							$("#link_img"+i).attr("src",config.hostw+link_pic);
+							$("#link_name"+i).text(link_name);
+							
+							mui("body").on("tap","#linklist"+i,function(){
+								mui.openWindowWithTitle({
+								    url:link_address,
+								    id:link_address
+								},{
+								    title:{//标题配置
+								        text:link_name,//标题文字
+								    },
+								    back:{//左上角返回箭头
+								        image:{
+								            base64Data:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAb1BMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAACubimgAAAAI3RSTlMAGfUTGfQTGPMSGPIYGhgaGBsXGxcbFxwXHBccFhwWHRYdHWufDPQAAAABYktHRACIBR1IAAAAB3RJTUUH4QETEBwooeTlkQAAAJVJREFUSMft1EkSgkAQRNFGUXFWHBDBibr/HTUwD5B/48Ig1y+io7u6MqUhf5hsNEY+j5hMgZ/FJ8Xc9ovos3T96utjbfqN/Nb0O/m96Uv5g+mP8ifTn+Ur01/ka9Nf5RvTt/I309/lH6Z/yr9Mn+Q71/MT8B34K/E58Enzv8R/K98HvnF8p3lr8F7izce7lbf3kJ/lDQp9HdBhgg3PAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTAxLTE5VDE2OjI4OjQwKzA4OjAwpTDFwQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wMS0xOVQxNjoyODo0MCswODowMNRtfX0AAAAASUVORK5CYII='
+								        },
+								        click:function(){
+								            //重写 点击返回图标时执行的回调函数，默认执行mui.back();
+								            //alert(1);
+								            mui.openWindow({
+								             	url:'shangdian_dialog.html',
+								             	id:'shangdian_dialog'
+								            });
+								        }
+								    }
+								})
+							});
+							
+						});
+							
+					}else if(data.status==0){
+						mui.toast(data.message);
+					}
+				});
+			});
+			//传入英雄id购买英雄函数
+			function buyhero(heroid){
+				//修改弹出框默认input类型为password 
+				mui.prompt('正确输入后你的晶石将扣除','请输入宝库密码','宝库密码',['取消','确认'],function(e){
+					if(e.index==1){
+						var bkPass =$(".mui-popup-input input[type=password]").val();
+						$.post(config.hostw+"home/Hero/buyHeros",{hero_id:heroid,bk_pass:bkPass},function(data){
+								if(data.status==0){
+									mui.toast(data.message);
+									setTimeout(function(){
+										mui.confirm('要返回主场景吗？','',['不要了','要'],function (e) {
+											if(e.index==1){
+												mui.openWindow({
+													url:"../index.html",
+													id:"index",
+													createNew:true
+												});
+											}else{
+												window.location.reload();
+											}
+										},'div')
+									},2000);
+								}else{
+									mui.toast(data.message);
+								}
+							});
+					}
+				},'div')
+				document.querySelector('.mui-popup-input input').type='password'; 	
+//				$.post(config.hostw+"home/Hero/buyHeros",{hero_id:heroid},function(data){
+//					if(data.status==0){
+//						mui.toast(data.message);
+//					}else{
+//						mui.toast(data.message);
+//					}
+//				});
+			};
+			$(".buyckjl").on("click",function(){
+				$.post(config.hostw+"home/Hero/hero_price",{hero_id:3},function(data){	
+					if(data.status==0){
+	                	mui.toast(data.message);
+	                }else if(data.status==1){
+	                	var xjs = data.message.xjs_num;
+	                	var ljs = data.message.ljs_num;
+	                	mui.confirm('购买此英雄将消耗您仙晶'+xjs+"个和蓝晶"+ljs+"个",'确认购买',['取消','确认'],function (e) {
+							if (e.index == 1) {
+								var heroid = 3;
+								buyhero(heroid);
+					       	} else {};
+						},'div');						
+	               }					
+				});                			
+				
+			});
+			$("#buyczn").on("click",function(){
+				$.post(config.hostw+"home/Hero/hero_price",{hero_id:1},function(data){
+					if (data.status==0) {
+						mui.toast(data.message);
+					} else{
+						mui.confirm('购买此英雄将消耗您仙晶'+data.message.xjs_num+"个和蓝晶"+data.message.ljs_num+"个",'确认购买',['取消','确认'],function (e) {
+							if (e.index == 1) {
+								var heroid = 1;
+								buyhero(heroid);
+					       	} else {};
+						},'div');						
+					}
+				});				
+			});	
+			$("#buyds").on("click",function(){
+				$.post(config.hostw+"home/Hero/hero_price",{hero_id:2},function(data){
+					if(data.status==0){
+						mui.toast(data.message);
+					}else{
+						mui.confirm('购买此英雄将消耗您仙晶'+data.message.xjs_num+"个和蓝晶"+data.message.ljs_num+"个",'确认购买',['取消','确认'],function (e) {
+						if (e.index == 1) {
+							var heroid = 2;
+							buyhero(heroid);
+				       	} else {};
+						},'div');
+					}					
+				});				
+			});	
+			$("#buyycxz").on("click",function(){
+				$.post(config.hostw+"home/Hero/hero_price",{hero_id:5},function(data){
+					if (data.status==0) {
+						mui.toast(data.message);
+					} else{
+						mui.confirm('购买此英雄将消耗您仙晶'+data.message.xjs_num+"个和蓝晶"+data.message.ljs_num+"个",'确认购买',['取消','确认'],function (e) {
+							if (e.index == 1) {
+								var heroid = 5;
+								buyhero(heroid);
+					       	} else {};
+						},'div');
+					}					
+				});				
+			});
+			$("#buyyxg").on("click",function(){
+				$.post(config.hostw+"home/Hero/hero_price",{hero_id:4},function(data){
+					if (data.status==0) {
+						mui.toast(data.message);
+					} else{
+						mui.confirm('购买此英雄将消耗您仙晶'+data.message.xjs_num+"个和蓝晶"+data.message.ljs_num+"个",'确认购买',['取消','确认'],function (e) {
+							if (e.index == 1) {
+								var heroid = 4;
+								buyhero(heroid);
+					       	} else {};
+						},'div');
+					}					
+				});				
+			});	
+			$("#closeBtn").on("click",function(){
+				mui.openWindow({
+					url:"../index.html",
+					id:"index",
+					createNew:true
+				});
+			});
+			//音频声明集
+			var Ckjl = document.getElementById("Caikuangjingling");
+			var Ycxz = document.getElementById("Yaochixianzi");
+			var Czn = document.getElementById("Caizhunv");
+			var Ds = document.getElementById("Danshi");
+			var Yxg = document.getElementById("Yaoxiangu");
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			//轮播图
+			var slider = mui("#slider");
+			slider.slider({
+				interval: 0
+			});
+
+			(function($) {
+				$('#scroll').scroll({
+					indicators: true //是否显示滚动条
+				});
+				var segmentedControl = document.getElementById('segmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if (this.checked) {
+						var styleEl = document.querySelector('input[name="style"]:checked');
+						var colorEl = document.querySelector('input[name="color"]:checked');
+						if (styleEl && colorEl) {
+							var style = styleEl.value;
+							var color = colorEl.value;
+							segmentedControl.className = 'mui-segmented-control' + (style ? (' mui-segmented-control-' + style) : '') + ' mui-segmented-control-' + color;
+						}
+					}
+				});
+			})(mui);
+			//自定义选项卡
+			mui(".xxtabs").on("tap",".hero", function(){
+				$(this).addClass("hero_active").removeClass("hreo");
+				$(".gem_active").addClass("gem").removeClass("gem_active");;
+				$(".cot_gem").hide();
+				$(".cot_hero").show();
+			});
+			mui(".xxtabs").on("tap",".gem", function(){
+				$(this).addClass("gem_active").removeClass("gem");
+				$(".hero_active").addClass("hero").removeClass("hero_active");
+				$(".cot_gem").show();
+				$(".cot_hero").hide();
+			});
+			//自定义选项卡 end
+			
+			//音频控制
+	        mui("#slider").on("tap","#ckjl_btn",function(){
+	        	Ckjl.play();
+	        });
+	        mui("#slider").on("tap","#czn_btn",function(){
+	        	Czn.play();
+	        });
+	        mui("#slider").on("tap","#ds_btn",function(){
+	        	Ds.play();
+	        });
+	        mui("#slider").on("tap","#ycxz_btn",function(){
+	        	Ycxz.play();
+	        });
+	        mui("#slider").on("tap","#yxg_btn",function(){
+	        	Yxg.play();
+	        });
+	        /*mui.plusReady(function(){
+				var oldback = mui.back;
+				mui.back = function() {
+				    mui.currentWebview.opener().show('none');
+				    oldback();
+				}
+            })*/
+           
+		</script>
+	</body>
+
+</html>

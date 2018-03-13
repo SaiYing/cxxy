@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>好友信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/resetmui.css">
+		<link rel="stylesheet" href="../css/setting.css">
+		<style>
+			.nanzhu img, .nvzhu img{ height: 160px;}
+			.input-transfer-text{ width: 65%;}
+			.mui-input-row .mui-btn{ width: auto; line-height: 1;}
+			.vercode{ position: absolute; right: 2px; top:2px;}
+			
+			.mui-content-bg{position: absolute;width: 100%;height: 100%;background: url(../images/team_bg.png) no-repeat left top;background-attachment: fixed;background-size: 100% 100%;overflow: auto;}
+			.mui-page-content{background-color: transparent;}		
+			.mui-input-group{background-color: transparent;margin-top: 10px;}		
+			.mui-input-group:before,.mui-input-group:after,.mui-input-row:after{height: 0 !important;}
+			.fshoujihao{width:78.3%;height:37px;background: url(../images/input_bg.png) no-repeat  left top !important;background-size: 100% 100% !important;margin:0 auto 5px;}
+			.mui-input-row label{padding:11px 8px 11px 20px;text-align: center;}
+			.mui-input-row label.faccount{width:32%;padding-right: 0;}
+			.mui-input-row .mui-btn{padding: 6px 0px;margin-right: 16px;margin-top: 4px;}
+			.fzhanghao{width:78.3%;height:64px;background: url(../images/fzhanghao_bg.png) no-repeat  left top !important;background-size: 100% 100% !important;margin:0 auto 15px;}
+			.mui-table-view{background-color:transparent;}
+			.mui-table-view:before,.mui-table-view:after{background-color:transparent;}
+			.mui-navigate-right{padding-top:8px !important;}
+			.mui-table-view-cell>a:not(.mui-btn){margin: -12px -8px;}
+			.mui-media-body{padding-left: 5px;}
+			.ftuichu{width:141px;height:58px;background: url(../images/ftuichu_bg.png) no-repeat  left top;background-size: 100% 100%;margin:-11px auto !important;border:none;}
+			h5{width:70%;color:#000;margin: 15px auto 0 !important;}
+			.nanzhu img, .nvzhu img {height: 80px;}
+			.select_gender{text-align: center;}
+			.select_gender input{left:56px !important;}
+			.ftijiao{width:141px;height:58px;background: url(../images/tijiao_bg.png) no-repeat  left top;background-size: 100% 100%;margin: 0 auto;border:none;}
+			.fbaocun{width:141px;height:58px;background: url(../images/fbaocun_bg.png) no-repeat  left top;background-size: 100% 100%;margin: 0 auto;border:none;}
+			.mui-active{background-color:transparent !important;}
+			
+			.select_box{padding-left: 4.8%;padding-right: 4.8%;padding-top:17px;padding-bottom:17px;margin: 0;}
+			.select_li{display: block;list-style:none;margin-bottom:15px;overflow: hidden;}
+			.select_li:last-of-type{margin-bottom: 0;}
+			.select_li a{display: inline-block;box-sizing:border-box;padding:0  6px 0 10px;height:30px;line-height: 30px;font-size: 15px;color:#fbfbfc;}
+			.select_left{float:left;width:43.8%;height:30px;background: url(../images/select_bg.png) no-repeat center;background-size: 100%;}
+			.select_right{float: right;width:43.8%;height:30px;background: url(../images/select_bg.png) no-repeat center;background-size: 100%;}
+			.select_con{display: inline-block;width:100%;height:100%;background: url(../images/select_arrow.png) no-repeat right center;background-size:17px 13px;}
+			.select_con span{margin-left: 5px;}
+			.list{width:100%;margin:25px auto 10px;}
+			.list_con{width:100%;height:405px;background: url(../images/list_bg.png) no-repeat center;background-size: 100% 100%;margin-top: -20px;position: relative;}
+			.list_tit{font-size: 17px;color:#000;text-align: center;padding-top:65px;}
+			table{width:83.3%;background-color: #fff;margin: auto;border-collapse: collapse;border:1px solid #0e0e0e;}
+			table tr{height:23px;line-height:23px;border-bottom: 1px solid #0e0e0e;font-size: 9px;color:#000;}
+			table tr td{text-align: center;}
+			.page{width:83.3%;margin: auto;overflow: hidden;}
+			.page_left{float:left;font-size: 9px;color: #010101;}
+			.page_right{float:right;}
+			.page_pre{display: inline-block;width:48px;height:11px;background: url(../images/page_pre.png) no-repeat center;background-size:100%;font-size: 9px;color:#010101;}
+			.page_next{display: inline-block;width:48px;height:11px;background: url(../images/page_next.png) no-repeat center;background-size:100%;font-size: 9px;color:#010101;margin-left: 32px;}
+			.list_close{width:19px;height:19px;position:absolute; top:5px;right:12px;}
+			.hide{display: none;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">好友信息</h1>
+		</header>
+		<div class="mui-content mui-content-bg">
+			<ul class="select_box">
+				<li class="select_li">
+					<a data-src="list1" class="select_left select1"><label class="select_con">日成长<span id="num1"></span></label></a>
+					<a data-src="list2" class="select_right select2"><label class="select_con">关注好友<span  id="num2"></span></label></a>
+				</li>
+				<li class="select_li">
+					<a data-src="list3" class="select_left select3"><label class="select_con">一级好友<span id="num3"></span></label></a>
+					<a data-src="list4" class="select_right select4"><label class="select_con">二级好友<span id="num4"></span></label></a>
+				</li>
+				<li class="select_li">
+					<a class="select_left select5"><label>好友总数  <span id="num6"></span></label></a>
+					<a  data-src="list5" class="select_right select6"><label class="select_con">今日奖励<span></span></label></a>
+				</li>
+			</ul>
+			<div id="list1" class="list hide">
+				<div class="list_con">
+					<img class="list_close" src="../images/list_close.png"/>
+					<p class="list_tit">日成长</p>
+					<table>
+						<thead>
+							<tr>
+								<th>日期</th>
+								<th>日成长</th>
+								<th>英雄数</th>
+								<th>英雄收益</th>
+								<th>个人任务收益</th>
+							</tr>
+						</thead>
+						<tbody id="tbody1"></tbody>
+						
+					</table>
+					<div class="page">
+						<div class="page_left">共有<span id="total_page1">0</span>条数据，当前第<span id="current_page1">0</span>页</div>
+						<div class="page_right"><a id="page_pre1" class="page_pre"></a><a id="page_next1" class="page_next"></a></div>
+					</div>
+				</div>
+			</div>
+			<div id="list2" class="list hide">
+				<div class="list_con">
+					<img class="list_close" src="../images/list_close.png"/>
+					<p class="list_tit">关注好友</p>
+					<table>
+						<thead>
+							<tr>
+								<th>编号ID</th>
+								<th>姓名</th>
+								<th>昵称</th>
+								<th>手机号</th>
+								<th>性别</th>
+								<th>日期</th>
+							</tr>
+						</thead>
+						<tbody id="tbody2"></tbody>
+					</table>
+					<div class="page">
+						<div class="page_left">共有<span id="total_page2">0</span>条数据，当前第<span id="current_page2">0</span>页</div>
+						<div class="page_right"><a class="page_pre" id="page_pre2"></a><a class="page_next" id="page_next2"></a></div>
+					</div>
+				</div>
+			</div>
+			<div id="list3" class="list hide">
+				<div class="list_con">
+					<img class="list_close" src="../images/list_close.png"/>
+					<p class="list_tit">一级好友</p>
+					<table>
+						<thead>
+							<tr>
+								<th>编号ID</th>
+								<th>姓名</th>
+								<th>昵称</th>
+								<th>手机号</th>
+								<th>英雄数</th>
+								<th>日期</th>
+							</tr>
+						</thead>
+						<tbody id="tbody3"></tbody>
+						
+					</table>
+					<div class="page">
+						<div class="page_left">共有<span id="total_page3">0</span>条数据，当前第<span id="current_page3">0</span>页</div>
+						<div class="page_right"><a class="page_pre" id="page_pre3"></a><a class="page_next" id="page_next3"></a></div>
+					</div>
+				</div>
+			</div>
+			<div id="list4" class="list hide">
+				<div class="list_con">
+					<img class="list_close" src="../images/list_close.png"/>
+					<p class="list_tit">二级好友</p>
+					<table>
+						<thead>
+							<tr>
+								<th>昵称</th>
+								<th>英雄数</th>
+								<th>日期</th>
+							</tr>
+						</thead>
+						<tbody id="tbody4"></tbody>
+					</table>
+					<div class="page">
+						<div class="page_left">共有<span id="total_page4">0</span>条数据，当前第<span id="current_page4">0</span>页</div>
+						<div class="page_right"><a class="page_pre" id="page_pre4"></a><a class="page_next" id="page_next4"></a></div>
+					</div>
+				</div>
+			</div>
+			<div id="list5" class="list hide">
+				<div class="list_con">
+					<img class="list_close" src="../images/list_close.png"/>
+					<p class="list_tit">今日奖励</p>
+					<table>
+						<thead>
+							<tr>
+								<th>日期</th>
+								<th>一级奖励</th>
+								<th>二级奖励</th>
+								<th>合计</th>
+								<th>累计</th>
+							</tr>
+						</thead>
+						<tbody id="tbody5"></tbody>
+					</table>
+					<div class="page">
+						<div class="page_left">共有<span id="total_page5">0</span>条数据，当前第<span id="current_page5">0</span>页</div>
+						<div class="page_right"><a class="page_pre" id="page_pre5"></a><a class="page_next" id="page_next5"></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js "></script>
+	<script src="../js/mui.view.js "></script>
+	<script src="../js/config.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
+
+	<script>
+		$.ajaxSetup ({cache:false});
+		mui.init({});
+		$(function(){
+			$(".select_li a").on("click",function(){
+				show($(this).attr("data-src"));
+			});
+			function show(id) {
+	            $("#"+id).removeClass("hide").siblings(".list").addClass("hide");
+	        };
+			$(".list_close").on("click",function(){
+				$(this).parents(".list").addClass("hide");
+			});
+			
+			/*日成长接口*/
+			$.post(config.hostw+'home/Index/daily_growth',function(data){
+				//if(data.status==1){
+					var message = data.message.ratio;
+					$("#num1").text(message);
+				if(data.status==0){
+					mui.toast(data.message.message);
+				}
+			});
+			/*关注好友接口*/
+			$.post(config.hostw+'home/Friends/care_friends',function(data){
+				if(data.status==1){
+					var message = data.message.data_num;      //共多少条数据
+					$("#num2").text(message);
+				}else if(data.status==0){
+					mui.toast(data.message);
+				}
+			});
+			/*一级好友接口*/
+			$.post(config.hostw+'home/Friends/first_friends',function(data){
+				if(data.status==1){
+					var message = data.message.data_num;
+					$("#num3").text(message);
+				}else if(data.status==0){
+					mui.toast(data.message);
+				}
+			});
+			/*二级好友接口*/
+			$.post(config.hostw+'home/Friends/second_friends',function(data){
+				if(data.status==1){
+					var message = data.message.data_num;
+					$("#num4").text(message);
+				}else if(data.status==0){
+					mui.toast(data.message);
+				}
+			});
+			/*好友总数接口*/
+			$.post(config.hostw+'home/Friends/friends_num',function(data){
+				if(data.status==1){
+					var message = data.message;
+					$("#num6").text(message);
+				}else if(data.status==0){					
+					mui.toast(data.message);
+				}
+			});
+			/*每日成长接口*/
+			var current_page1;
+			var page_num1;
+			$(".select1").on("click",function(){
+				$("#tbody1").html("");
+				$.post(config.hostw+'home/Index/daily_growth',{page:1},function(data){
+					if(data.status==1){
+						current_page1 = data.message.current_page;  //当前页
+						var data_num1 = data.message.data_num;      //共多少条数据
+						page_num1 = data.message.page_num;      //共多少页
+						var current_data1 = data.message.current_data;   //当前页的数据
+						var count1 = eval(data.message.current_data).length;
+						$("#total_page1").text(data_num1);
+						$("#current_page1").text(current_page1);
+						for(var i=0; i < count1; i++){					
+							var lists1 ='<tr>'+
+											'<td id="td11'+i+'"></td>'+
+											'<td id="td21'+i+'"></td>'+
+											'<td id="td31'+i+'"></td>'+
+											'<td id="td41'+i+'"></td>'+
+											'<td id="td51'+i+'"></td>'+
+										'</tr>';
+							$("#tbody1").append(lists1);
+						}
+						$.each(data.message.current_data, function(i,item) {
+							var today_ratio1 = item.today_ratio;//日成长
+							var hero_num1 = item.hero_num;//英雄数
+							var hero_income1 = item.hero_income;//英雄收益
+							var person_income1 = item.person_income;// 个人任务收益
+							var create_time1 = item.create_time;  //时间
+							$("#"+"td11"+i).text(create_time1);
+							$("#"+"td21"+i).text(today_ratio1);
+							$("#"+"td31"+i).text(hero_num1);
+							$("#"+"td41"+i).text(hero_income1);
+							$("#"+"td51"+i).text(person_income1);
+						});					
+					}else if(data.status==0){
+						mui.toast(data.message);
+					}
+				});
+			});		
+			/*点击前一页*/
+			$("#page_pre1").on("click",function(){
+				current_page1--;
+				if(current_page1<1){
+					current_page1=1;
+					mui.toast("这就是第一页数据");
+				}else if(current_page1>=1){
+					$.post(config.hostw+'home/Index/daily_growth',{page:current_page1},function(data){
+						if(data.status==1){
+							$("#tbody1").html("");
+							var data_num1 = data.message.data_num;      //共多少条数据
+							var page_num1 = data.message.page_num;      //共多少页
+							var current_data1 = data.message.current_data;   //当前页的数据
+							var count1 = eval(data.message.current_data).length;
+							$("#total_page1").text(data_num1);
+							$("#current_page1").text(current_page1);
+							for(var i=0; i < count1; i++){					
+								var lists1 ='<tr>'+
+												'<td id="td11'+i+'"></td>'+
+												'<td id="td21'+i+'"></td>'+
+												'<td id="td31'+i+'"></td>'+
+												'<td id="td41'+i+'"></td>'+
+												'<td id="td51'+i+'"></td>'+
+											'</tr>';
+								$("#tbody1").append(lists1);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var today_ratio1 = item.today_ratio;//日成长
+								var hero_num1 = item.hero_num;//英雄数
+								var hero_income1 = item.hero_income;//个人任务
+								var person_income1 = item.person_income;// 收益
+								var create_time1 = item.create_time;  //时间
+								$("#"+"td11"+i).text(create_time1);
+								$("#"+"td21"+i).text(today_ratio1);
+								$("#"+"td31"+i).text(hero_num1);
+								$("#"+"td41"+i).text(hero_income1);
+								$("#"+"td51"+i).text(person_income1);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			/*点击后一页*/
+			$("#page_next1").on("click",function(){
+				current_page1++;
+				if(current_page1>page_num1){
+					current_page1=page_num1;
+					mui.toast("这就是最后一页数据");
+				}else if(current_page1<=page_num1){
+					$.post(config.hostw+'home/Index/daily_growth',{page:current_page1},function(data){
+						if(data.status==1){
+							$("#tbody1").html("");
+							var data_num1 = data.message.data_num;      //共多少条数据
+							var page_num1 = data.message.page_num;      //共多少页
+							var current_data1 = data.message.current_data;   //当前页的数据
+							var count1 = eval(data.message.current_data).length;
+							$("#total_page1").text(data_num1);
+							$("#current_page1").text(current_page1);
+							
+							for(var i=0; i < count1; i++){					
+								var lists1 ='<tr>'+
+												'<td id="td11'+i+'"></td>'+
+												'<td id="td21'+i+'"></td>'+
+												'<td id="td31'+i+'"></td>'+
+												'<td id="td41'+i+'"></td>'+
+												'<td id="td51'+i+'"></td>'+
+											'</tr>';
+								$("#tbody1").append(lists1);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var today_ratio1 = item.today_ratio;//日成长
+								var hero_num1 = item.hero_num;//英雄数
+								var hero_income1 = item.hero_income;//个人任务
+								var person_income1 = item.person_income;// 收益
+								var create_time1 = item.create_time;  //时间
+								$("#"+"td11"+i).text(create_time1);
+								$("#"+"td21"+i).text(today_ratio1);
+								$("#"+"td31"+i).text(hero_num1);
+								$("#"+"td41"+i).text(hero_income1);
+								$("#"+"td51"+i).text(person_income1);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			
+			/*关注好友接口*/
+			var current_page2;
+			var page_num2;
+			$(".select2").on("click",function(){
+				$("#tbody2").html("");
+				$.post(config.hostw+'home/Friends/care_friends',{page:1},function(data){
+					if(data.status==1){
+						current_page2 = data.message.current_page;  //当前页
+						var data_num2 = data.message.data_num;      //共多少条数据
+						page_num2 = data.message.page_num;      //共多少页
+						var current_data2 = data.message.current_data;   //当前页的数据
+						var count2 = eval(data.message.current_data).length;
+						$("#total_page2").text(data_num2);
+						$("#current_page2").text(current_page2);
+						for(var i=0; i < count2; i++){					
+							var lists2 ='<tr>'+
+											'<td id="td02'+i+'"></td>'+
+											'<td id="td12'+i+'"></td>'+
+											'<td id="td22'+i+'"></td>'+
+											'<td id="td32'+i+'"></td>'+
+											'<td id="td42'+i+'"></td>'+
+											'<td id="td52'+i+'"></td>'+
+										'</tr>';
+							$("#tbody2").append(lists2);
+						}
+						$.each(data.message.current_data, function(i,item) {
+							var bh_id = item.bh_id;
+							var user_realname2 = item.user_realname;//姓名
+							var user_nickname2 = item.user_nickname;//昵称
+							var user_phone2 = item.user_phone;// 手机号
+							var sex2 = item.sex;  //性别
+							var reg_time2 = item.reg_time;  //日期
+							$("#"+"td02"+i).text(bh_id);
+							$("#"+"td12"+i).text(user_realname2);
+							$("#"+"td22"+i).text(user_nickname2);
+							$("#"+"td32"+i).text(user_phone2);
+							if (sex2==1) {
+								$("#"+"td42"+i).text("女");
+							} else if (sex2==2){
+								$("#"+"td42"+i).text("男");
+							}else if (sex2==3){
+								$("#"+"td42"+i).text("未知");
+							}
+							
+							$("#"+"td52"+i).text(reg_time2);
+						});					
+					}else if(data.status==0){
+						mui.toast(data.message);
+					}
+				});
+			});		
+			/*点击前一页*/
+			$("#page_pre2").on("click",function(){
+				current_page2--;
+				if(current_page2<1){
+					current_page2=1;
+					mui.toast("这就是第一页数据");
+					return false;
+				}else if(current_page2>=1){
+					$.post(config.hostw+'home/Friends/care_friends',{page:current_page2},function(data){
+						if(data.status==1){
+							$("#tbody2").html("");
+							var data_num2 = data.message.data_num;      //共多少条数据
+							var page_num2 = data.message.page_num;      //共多少页
+							var current_data2 = data.message.current_data;   //当前页的数据
+							var count2 = eval(data.message.current_data).length;
+							$("#total_page2").text(data_num2);
+							$("#current_page2").text(current_page2);
+							for(var i=0; i < count2; i++){					
+								var lists2 ='<tr>'+
+												'<td id="td02'+i+'"></td>'+
+												'<td id="td12'+i+'"></td>'+
+												'<td id="td22'+i+'"></td>'+
+												'<td id="td32'+i+'"></td>'+
+												'<td id="td42'+i+'"></td>'+
+												'<td id="td52'+i+'"></td>'+
+											'</tr>';
+								$("#tbody2").append(lists2);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var bh_id = item.bh_id;
+								var user_realname2 = item.user_realname;//姓名
+								var user_nickname2 = item.user_nickname;//昵称
+								var user_phone2 = item.user_phone;// 手机号
+								var sex2 = item.sex;  //性别
+								var reg_time2 = item.reg_time;  //日期
+								$("#"+"td02"+i).text(bh_id);
+								$("#"+"td12"+i).text(user_realname2);
+								$("#"+"td22"+i).text(user_nickname2);
+								$("#"+"td32"+i).text(user_phone2);
+								$("#"+"td42"+i).text(sex2);
+								$("#"+"td52"+i).text(reg_time2);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			/*点击后一页*/
+			$("#page_next2").on("click",function(){
+				current_page2++;
+				if(current_page2>page_num2){
+					current_page2=page_num2;
+					mui.toast("这就是最后一页数据");
+				}else if(current_page2<=page_num2){
+					$.post(config.hostw+'home/Friends/care_friends',{page:current_page2},function(data){
+						if(data.status==1){
+							$("#tbody1").html("");
+							var data_num2 = data.message.data_num;      //共多少条数据
+							var page_num2 = data.message.page_num;      //共多少页
+							var current_data2 = data.message.current_data;   //当前页的数据
+							var count2 = eval(data.message.current_data).length;
+							$("#total_page2").text(data_num2);
+							$("#current_page2").text(current_page2);
+							for(var i=0; i < count2; i++){					
+								var lists2 ='<tr>'+
+												'<td id="td02'+i+'"></td>'+
+												'<td id="td12'+i+'"></td>'+
+												'<td id="td22'+i+'"></td>'+
+												'<td id="td32'+i+'"></td>'+
+												'<td id="td42'+i+'"></td>'+
+												'<td id="td52'+i+'"></td>'+
+											'</tr>';
+								$("#tbody2").append(lists2);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var bh_id = item.bh_id;
+								var user_realname2 = item.user_realname;//姓名
+								var user_nickname2 = item.user_nickname;//昵称
+								var user_phone2 = item.user_phone;// 手机号
+								var sex2 = item.sex;  //性别
+								var reg_time2 = item.reg_time;  //日期
+								$("#"+"td02"+i).text(bh_id);
+								$("#"+"td12"+i).text(user_realname2);
+								$("#"+"td22"+i).text(user_nickname2);
+								$("#"+"td32"+i).text(user_phone2);
+								$("#"+"td42"+i).text(sex2);
+								$("#"+"td52"+i).text(reg_time2);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			
+			/*一级好友接口*/
+			var current_page3;
+			var page_num3;
+			$(".select3").on("click",function(){
+				$("#tbody3").html("");
+				$.post(config.hostw+'home/Friends/first_friends',{page:1},function(data){
+					if(data.status==1){
+						current_page3 = data.message.current_page;  //当前页
+						var data_num3 = data.message.data_num;      //共多少条数据
+						page_num3 = data.message.page_num;      //共多少页
+						var current_data3 = data.message.current_data;   //当前页的数据
+						var count3 = eval(data.message.current_data).length;
+						$("#total_page3").text(data_num3);
+						$("#current_page3").text(current_page3);
+						for(var i=0; i < count3; i++){					
+							var lists3 ='<tr>'+
+											'<td id="td03'+i+'"></td>'+
+											'<td id="td13'+i+'"></td>'+
+											'<td id="td23'+i+'"></td>'+
+											'<td id="td33'+i+'"></td>'+
+											'<td id="td43'+i+'"></td>'+
+											'<td id="td53'+i+'"></td>'+
+										'</tr>';
+							$("#tbody3").append(lists3);
+						}
+						$.each(data.message.current_data, function(i,item) {
+							var id = item.bh_id;//ID
+							var user_realname3 = item.user_realname;//姓名
+							var user_nickname3 = item.user_nickname;//昵称
+							var user_phone3 = item.user_phone;// 手机号
+							var hero_num3 = item.hero_num;  //英雄数
+							var reg_time3 = item.reg_time;  //日期
+							$("#"+"td03"+i).text(id);
+							$("#"+"td13"+i).text(user_realname3);
+							$("#"+"td23"+i).text(user_nickname3);
+							$("#"+"td33"+i).text(user_phone3);
+							$("#"+"td43"+i).text(hero_num3);
+							$("#"+"td53"+i).text(reg_time3);
+						});
+					}else if(data.status==0){
+						mui.toast(data.message);
+					}
+				});
+			});		
+			/*点击前一页*/
+			$("#page_pre3").on("click",function(){
+				current_page3--;
+				if(current_page3<1){
+					current_page3=1;
+					mui.toast("这就是第一页数据");
+				}else if(current_page3>=1){
+					$.post(config.hostw+'home/Friends/first_friends',{page:current_page3},function(data){
+						if(data.status==1){
+							$("#tbody3").html("");
+							var data_num3 = data.message.data_num;     //共多少条数据
+							var page_num3 = data.message.page_num;      //共多少页
+							var current_data3 = data.message.current_data;   //当前页的数据
+							var count3 = eval(data.message.current_data).length;
+							$("#total_page3").text(data_num3);
+							$("#current_page3").text(current_page3);
+							
+							for(var i=0; i < count3; i++){					
+								var lists3 ='<tr>'+
+												'<td id="td03'+i+'"></td>'+
+												'<td id="td13'+i+'"></td>'+
+												'<td id="td23'+i+'"></td>'+
+												'<td id="td33'+i+'"></td>'+
+												'<td id="td43'+i+'"></td>'+
+												'<td id="td53'+i+'"></td>'+
+											'</tr>';
+								$("#tbody3").append(lists3);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var id = item.bh_id;//ID
+								var user_realname3 = item.user_realname;//姓名
+								var user_nickname3 = item.user_nickname;//昵称
+								var user_phone3 = item.user_phone;// 手机号
+								var hero_num3 = item.hero_num;  //英雄数
+								var reg_time3 = item.reg_time;  //日期
+								$("#"+"td03"+i).text(id);
+								$("#"+"td13"+i).text(user_realname3);
+								$("#"+"td23"+i).text(user_nickname3);
+								$("#"+"td33"+i).text(user_phone3);
+								$("#"+"td43"+i).text(hero_num3);
+								$("#"+"td53"+i).text(reg_time3);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			/*点击后一页*/
+			$("#page_next3").on("click",function(){
+				current_page3++;
+				if(current_page3>page_num3){
+					current_page3=page_num3;
+					mui.toast("这就是最后一页数据");
+				}else if(current_page3<=page_num3){
+					$.post(config.hostw+'home/Friends/first_friends',{page:current_page3},function(data){
+						if(data.status==1){
+							$("#tbody3").html("");
+							var data_num3 = data.message.data_num;      //共多少条数据
+							var page_num3 = data.message.page_num;      //共多少页
+							var current_data3 = data.message.current_data;   //当前页的数据
+							var count3 = eval(data.message.current_data).length;
+							$("#total_page3").text(data_num3);
+							$("#current_page3").text(current_page3);
+							for(var i=0; i < count3; i++){					
+								var lists3 ='<tr>'+
+												'<td id="td03'+i+'"></td>'+
+												'<td id="td13'+i+'"></td>'+
+												'<td id="td23'+i+'"></td>'+
+												'<td id="td33'+i+'"></td>'+
+												'<td id="td43'+i+'"></td>'+
+												'<td id="td53'+i+'"></td>'+
+											'</tr>';
+								$("#tbody3").append(lists3);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var id = item.bh_id;//ID
+								var user_realname3 = item.user_realname;//姓名
+								var user_nickname3 = item.user_nickname;//昵称
+								var user_phone3 = item.user_phone;// 手机号
+								var hero_num3 = item.hero_num;  //英雄数
+								var reg_time3 = item.reg_time;  //日期
+								$("#"+"td03"+i).text(id);
+								$("#"+"td13"+i).text(user_realname3);
+								$("#"+"td23"+i).text(user_nickname3);
+								$("#"+"td33"+i).text(user_phone3);
+								$("#"+"td43"+i).text(hero_num3);
+								$("#"+"td53"+i).text(reg_time3);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			
+			/*二级好友接口*/
+			var current_page4;
+			var page_num4;
+			$(".select4").on("click",function(){
+				$("#tbody4").html("");
+				$.post(config.hostw+'home/Friends/second_friends',{page:1},function(data){
+					if(data.status==1){
+						current_page4 = data.message.current_page;  //当前页
+						var data_num4 = data.message.data_num;      //共多少条数据
+						page_num4 = data.message.page_num;      //共多少页
+						var current_data4 = data.message.current_data;   //当前页的数据
+						var count4 = eval(data.message.current_data).length;
+						$("#total_page4").text(data_num4);
+						$("#current_page4").text(current_page4);
+						$("#num4").text(data_num4);
+						for(var i=0; i < count4; i++){					
+							var lists4 ='<tr>'+
+											'<td id="td14'+i+'"></td>'+
+											'<td id="td24'+i+'"></td>'+
+											'<td id="td34'+i+'"></td>'+
+										'</tr>';
+							$("#tbody4").append(lists4);
+						}
+						$.each(data.message.current_data, function(i,item) {
+							var user_nickname4 = item.user_nickname;//昵称
+							var hero_num4 = item.hero_num;  //英雄数
+							var reg_time4 = item.reg_time;  //日期
+							$("#"+"td14"+i).text(user_nickname4);
+							$("#"+"td24"+i).text(hero_num4);
+							$("#"+"td34"+i).text(reg_time4);
+						});
+					}else if(data.status==0){
+						mui.toast(data.message);
+					}
+				});
+			});		
+			/*点击前一页*/
+			$("#page_pre4").on("click",function(){
+				current_page4--;
+				if(current_page4<1){
+					current_page4=1;
+					mui.toast("这就是第一页数据");
+				}else if(current_page4>=1){
+					$.post(config.hostw+'home/Friends/second_friends',{page:current_page4},function(data){
+						if(data.status==1){
+							$("#tbody4").html("");
+							var data_num4 = data.message.data_num;      //共多少条数据
+							var page_num4 = data.message.page_num;      //共多少页
+							var current_data4 = data.message.current_data;   //当前页的数据
+							var count4 = eval(data.message.current_data).length;
+							$("#total_page4").text(data_num4);
+							$("#current_page4").text(current_page4);
+							for(var i=0; i < count4; i++){					
+								var lists4 ='<tr>'+
+												'<td id="td14'+i+'"></td>'+
+												'<td id="td24'+i+'"></td>'+
+												'<td id="td34'+i+'"></td>'+
+											'</tr>';
+								$("#tbody4").append(lists4);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var user_nickname4 = item.user_nickname;//昵称
+								var hero_num4 = item.hero_num;  //英雄数
+								var reg_time4 = item.reg_time;  //日期
+								$("#"+"td14"+i).text(user_nickname4);
+								$("#"+"td24"+i).text(hero_num4);
+								$("#"+"td34"+i).text(reg_time4);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			/*点击后一页*/
+			$("#page_next4").on("click",function(){
+				current_page4++;
+				if(current_page4>page_num4){
+					current_page4=page_num4;
+					mui.toast("这就是最后一页数据");
+				}else if(current_page4<=page_num4){
+					$.post(config.hostw+'home/Friends/second_friends',{page:current_page4},function(data){
+						if(data.status==1){
+							$("#tbody4").html("");
+							var data_num4 = data.message.data_num;      //共多少条数据
+							var page_num4 = data.message.page_num;      //共多少页
+							var current_data4 = data.message.current_data;   //当前页的数据
+							var count4 = eval(data.message.current_data).length;
+							$("#total_page4").text(data_num4);
+							$("#current_page4").text(current_page4);
+							for(var i=0; i < count4; i++){					
+								var lists4 ='<tr>'+
+												'<td id="td14'+i+'"></td>'+
+												'<td id="td24'+i+'"></td>'+
+												'<td id="td34'+i+'"></td>'+
+											'</tr>';
+								$("#tbody4").append(lists4);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var user_nickname4 = item.user_nickname;//昵称
+								var hero_num4 = item.hero_num;  //英雄数
+								var reg_time4 = item.reg_time;  //日期
+								$("#"+"td14"+i).text(user_nickname4);
+								$("#"+"td24"+i).text(hero_num4);
+								$("#"+"td34"+i).text(reg_time4);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			
+			/*今日奖励接口*/
+			var current_page5;
+			var page_num5;
+			$(".select6").on("click",function(){
+				$("#tbody5").html("");
+				$.post(config.hostw+'home/Index/daily_reward',{page:1},function(data){
+					if(data.status==1){
+						current_page5 = data.message.current_page;  //当前页
+						var data_num5 = data.message.data_num;      //共多少条数据
+						page_num5 = data.message.page_num;      //共多少页
+						var current_data5 = data.message.current_data;   //当前页的数据
+						var count5 = eval(data.message.current_data).length;
+						$("#total_page5").text(data_num5);
+						$("#current_page5").text(current_page5);
+						for(var i=0; i < count5; i++){					
+							var lists5 ='<tr>'+
+											'<td id="td15'+i+'"></td>'+
+											'<td id="td25'+i+'"></td>'+
+											'<td id="td35'+i+'"></td>'+
+											'<td id="td45'+i+'"></td>'+
+											'<td id="td55'+i+'"></td>'+
+										'</tr>';
+							$("#tbody5").append(lists5);
+						}
+						$.each(data.message.current_data, function(i,item) {
+							var create_time5 = item.create_time;  //日期
+							var ydsy5 = item.ydsy;//一级奖励
+							var edsy5 = item.edsy;//二级奖励
+							var total5 = item.total;//合计
+							var cumulative5 = item.cumulative;  //累计							
+							$("#"+"td15"+i).text(create_time5);
+							$("#"+"td25"+i).text(ydsy5);
+							$("#"+"td35"+i).text(edsy5);
+							$("#"+"td45"+i).text(total5);
+							$("#"+"td55"+i).text(cumulative5);
+						});
+					}else if(data.status==0){
+						mui.toast(data.message);
+					}
+				});
+			});		
+			/*点击前一页*/
+			$("#page_pre5").on("click",function(){
+				current_page5--;
+				if(current_page5<1){
+					current_page5=1;
+					mui.toast("这就是第一页数据");
+				}else if(current_page5>=1){
+					$.post(config.hostw+'home/Index/daily_reward',{page:current_page5},function(data){
+						if(data.status==1){
+							$("#tbody5").html("");
+							var data_num5 = data.message.data_num;      //共多少条数据
+							var page_num5 = data.message.page_num;      //共多少页
+							var current_data5 = data.message.current_data;   //当前页的数据
+							var count5 = eval(data.message.current_data).length;
+							$("#total_page5").text(data_num5);
+							$("#current_page5").text(current_page5);
+							for(var i=0; i < count5; i++){					
+								var lists5 ='<tr>'+
+												'<td id="td15'+i+'"></td>'+
+												'<td id="td25'+i+'"></td>'+
+												'<td id="td35'+i+'"></td>'+
+												'<td id="td45'+i+'"></td>'+
+												'<td id="td55'+i+'"></td>'+
+											'</tr>';
+								$("#tbody5").append(lists5);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var create_time5 = item.create_time;  //日期
+								var ydsy5 = item.ydsy;//一级奖励
+								var edsy5 = item.edsy;//二级奖励
+								var total5 = item.total;//合计
+								var cumulative5 = item.cumulative;  //累计							
+								$("#"+"td15"+i).text(create_time5);
+								$("#"+"td25"+i).text(ydsy5);
+								$("#"+"td35"+i).text(edsy5);
+								$("#"+"td45"+i).text(total5);
+								$("#"+"td55"+i).text(cumulative5);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			/*点击后一页*/
+			$("#page_next5").on("click",function(){
+				current_page5++;
+				if(current_page5>page_num5){
+					current_page5=page_num5;
+					mui.toast("这就是最后一页数据");
+				}else if(current_page5<=page_num5){
+					$.post(config.hostw+'home/Index/daily_reward',{page:current_page5},function(data){
+						if(data.status==1){
+							$("#tbody5").html("");
+							var data_num5 = data.message.data_num;      //共多少条数据
+							var page_num5 = data.message.page_num;      //共多少页
+							var current_data5 = data.message.current_data;   //当前页的数据
+							var count5 = eval(data.message.current_data).length;
+							$("#total_page5").text(data_num5);
+							$("#current_page5").text(current_page5);
+							for(var i=0; i < count5; i++){					
+								var lists5 ='<tr>'+
+												'<td id="td15'+i+'"></td>'+
+												'<td id="td25'+i+'"></td>'+
+												'<td id="td35'+i+'"></td>'+
+												'<td id="td45'+i+'"></td>'+
+												'<td id="td55'+i+'"></td>'+
+											'</tr>';
+								$("#tbody5").append(lists5);
+							}
+							$.each(data.message.current_data, function(i,item) {
+								var create_time5 = item.create_time;  //日期
+								var ydsy5 = item.ydsy;//一级奖励
+								var edsy5 = item.edsy;//二级奖励
+								var total5 = item.total;//合计
+								var cumulative5 = item.cumulative;  //累计							
+								$("#"+"td15"+i).text(create_time5);
+								$("#"+"td25"+i).text(ydsy5);
+								$("#"+"td35"+i).text(edsy5);
+								$("#"+"td45"+i).text(total5);
+								$("#"+"td55"+i).text(cumulative5);
+							});
+						}else if(data.status==0){
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+			
+		});
+		
+	</script>
+</html>

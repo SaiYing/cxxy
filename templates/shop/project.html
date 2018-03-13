@@ -1,0 +1,142 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../../css/mui.min.css">
+<style>
+.bannerBox{background-color:#f5f5f9;margin-left:auto;margin-right:auto;position:relative;}
+.image{overflow:hidden;}
+.image img{width:100%;}
+.towNav{ width:96%;margin-left:2%; margin-top: 2%;}
+.towNav h1{font-size:28px;line-height:68px;}
+.towNav .text{width:36px; border-radius:6px;margin-left:6px;height:22px;}
+.towNav .bu{height:9px;weidth:9px; border-radius:4px;margin-left:6px;}
+.towNav dl{background-color:rgba(255,255,255,0.5);}
+.towNav p{ font-family:"宋体";line-height:30px;font-size:14px;}
+.topp{padding-top:16px;}
+.fenjie{width:584px;overflow:hidden;padding-top:6px;padding-bottom:36px;}
+.towNav dt{margin-top:99px;}
+.towNav dt span{margin-top:12px;}
+.towNav dt .butt{margin-top:0;}
+.towNav dd{margin-left:26px;margin-right:auto;margin-top:99px;}
+.towNav dd span{padding:16px;background-color:#999;margin-left:36px;padding-left:66px;padding-right:66px;}
+.hBox{margin-top:0px;margin-bottom:16px;}
+.hBox h1{font-size:18px;}
+.content p{margin-left:19px;margin:12px;}
+.towNav h2{font-size:18px;font-weight:normal;}
+.duo{border:1px solid #F00;padding:6px;font-size:16px;line-height:16px; border-radius:6px;margin:9px; text-align: center;background-color: #F00;color:#fff;
+
+
+
+}
+.towNav span{float:left;}
+.tuijian{width:160px;float:right;border-left:#CCC 2px solid;padding-left:16px;position:absolute;top:0;right:0;}
+.tuijian p{ text-align:center;}
+.tuijian img{width:160px;height:130px;}
+.tuijian h2{border-bottom:1px solid rgba(255,0,0,0.3);font-size:12px; font-weight:normal;background-color:#CCC;}
+.content h3{font-size:16px; padding: 0 10px;}
+.bannerBox p{padding-top:9px;padding-bottom:6px;}
+
+.button{border:1px solid #999;width:120px;margin-left:auto;margin-right:auto;margin-top:16px;margin-bottom:16px;}
+.button a{font-size:14px;padding-left:10px;padding-right:6px;float:left;line-height:18px;border:1px solid #666;}
+.button a:hover{background-color:#666;}
+.content{border:1px solid #CCC; border-radius:4px;background:#FFE;}
+.towNav h1{ width: 100%; text-align: left; font-size: 20px; font-weight: bold; line-height: 30px; height: 30px;padding-top:5px;padding-bottom:5px;}
+.towNav h2{ width: 100%; text-align: left; font-size: 14px;height:auto;padding-top:5px;padding-bottom:5px;}
+.contentBox{ padding: 10px;}
+
+</style>
+
+
+</head>
+
+<body>
+ <header class="mui-bar mui-bar-nav">
+     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+     <h1 class="mui-title">商品详情</h1>
+ </header>
+<div class="mui-content" style="background-color: #f5f5f5;">
+	<div class="bannerBox" style="margin-top: 10px; height: auto;overflow: hidden;">
+		  <div class="image">
+		    <img id="shopimgurl" src=" ">
+		  </div>
+	    
+	     <div class="towNav">
+	          <h1 id="shopname">正在读取...</h1>
+	          <h2 id="shoptitle">正在读取...</h2>
+	          <p>价格： <b id="shopprice" style="color:red;">正在读取...</b></p> 
+	          <span>数量</span>
+	          <form>
+	            <div><input style="text-indent:10px;width:100px;color:#000；" id="count" size="1" onchange="countnum()" type="text" class="text" value="1"/></div>
+				<script>
+					function countnum(){
+						var val = $("#count").val();
+						if(val<=0){
+							$("#count").val("1");
+						}
+					}
+				</script>
+	          </form>
+	           <div class="duo buy">立即购买</div>        
+	     </div>
+	</div>
+	<div class="contentBox">
+	    <div class="hBox" style="overflow: hidden;" >
+	        <h1>产品详情</h1>   
+	    </div>               
+		<div class="content">      
+	      	<h3 id="shoptitle2">正在读取...</h3>
+	      	<p id="shopcontent">正在读取...<strong>正在读取...</strong>、<strong>正在读取...</strong>。</p>
+			<!--<p><span style="line-height:1.5;"><strong>付款后请填写收款信息</strong>，下单后48小时内发货。如果无法发货，平台客户会主动联系您。</span></p>-->        
+	  </div>
+	</div>
+</div>
+</div>
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/config.js"></script>
+<script src="../../js/jquery-1.11.3.min.js"></script>
+<script>
+	mui.init({});
+	mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var shopsid = self.goodsid;
+			//alert(shopsid)
+			mui.post(config.hostw+'home/Shop/project',{id:shopsid},function(data){
+				if(data.status==1){
+					var shopname = data.shop.name;
+					var shoptitle = data.shop.title;
+					var shopcontent = data.shop.content;
+					var shopprice = data.shop.price;					
+					var shopimgurl = data.shop.imagepath;
+					var hjs = data.shop.price_hjs;
+					var ljs = data.shop.price_ljs;
+					$("#shopname").text(shopname);
+					$("#shoptitle").text(shoptitle);
+					$("#shoptitle2").text(shoptitle);
+					$("#shopprice").text(hjs+'红晶'+" "+ljs+'蓝晶');
+					$("#shopcontent").html(shopcontent);
+					$("#shopimgurl").attr("src",config.hostw+shopimgurl);					
+				}
+			})
+			mui(".towNav").on("tap",".buy",function(){				
+				var goodsnum = document.getElementById("count").value;
+				mui.openWindow({
+					url:"confirmProject.html",
+					id:"confirmProject",
+					extras:{
+						shopnum : goodsnum,
+						shopid : shopsid
+					}
+				})
+			})
+	});
+	
+</script>
+
+</body>
+</html>

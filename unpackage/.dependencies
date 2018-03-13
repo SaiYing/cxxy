@@ -1,0 +1,197 @@
+{
+  "examples/switches.html": {
+    "href": "examples/switches.html",
+    "resources": [],
+    "priority": 2
+  },
+  "index-menu.html": {
+    "href": "index-menu.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "examples/info.html": {
+    "href": "examples/info.html",
+    "resources": [],
+    "priority": 1
+  },
+  "examples/guide.html": {
+    "href": "examples/guide.html",
+    "resources": [],
+    "priority": 3
+  },
+  "examples/card.html": {
+    "href": "examples/card.html",
+    "resources": [],
+    "priority": 7
+  },
+  "examples/numbox.html": {
+    "href": "examples/numbox.html",
+    "resources": [],
+    "priority": 12
+  },
+  "examples/pagination.html": {
+    "href": "examples/pagination.html",
+    "resources": [],
+    "priority": 13
+  },
+  "examples/progressbar.html": {
+    "href": "examples/progressbar.html",
+    "resources": [],
+    "priority": 16
+  },
+  "examples/range.html": {
+    "href": "examples/range.html",
+    "resources": [],
+    "priority": 18
+  },
+  "examples/typography.html": {
+    "href": "examples/typography.html",
+    "resources": [],
+    "priority": 20
+  },
+  "examples/beecloud.html": {
+    "href": "examples/beecloud.html",
+    "resources": [],
+    "priority": 25
+  },
+  "examples/feedback.html": {
+    "href": "examples/feedback.html",
+    "resources": [],
+    "priority": 26
+  },
+  "examples/login.html": {
+    "href": "examples/login.html",
+    "resources": [],
+    "priority": 30
+  },
+  "examples/setting.html": {
+    "href": "examples/setting.html",
+    "resources": [],
+    "refer": [],
+    "priority": 31
+  },
+  "examples/best-practices/list-to-detail/detail.html": {
+    "href": "examples/best-practices/list-to-detail/detail.html",
+    "resources": [],
+    "priority": 32
+  },
+  "examples/best-practices/list-to-detail/listview.html": {
+    "href": "examples/best-practices/list-to-detail/listview.html",
+    "resources": [],
+    "refer": [],
+    "priority": 32
+  },
+  "examples/buttons-with-block.html": {
+    "href": "examples/buttons-with-block.html",
+    "resources": [],
+    "priority": 38
+  },
+  "examples/buttons-with-loading.html": {
+    "href": "examples/buttons-with-loading.html",
+    "resources": [],
+    "priority": 39
+  },
+  "examples/slider-default.html": {
+    "href": "examples/slider-default.html",
+    "resources": [],
+    "priority": 42
+  },
+  "examples/slider-native.html": {
+    "href": "examples/slider-native.html",
+    "resources": [],
+    "priority": 43
+  },
+  "examples/slider-with-title.html": {
+    "href": "examples/slider-with-title.html",
+    "resources": [],
+    "priority": 44
+  },
+  "examples/icons-extra.html": {
+    "href": "examples/icons-extra.html",
+    "resources": [],
+    "priority": 50
+  },
+  "examples/nav-nativeObj.html": {
+    "href": "examples/nav-nativeObj.html",
+    "resources": [],
+    "priority": 58
+  },
+  "examples/nav_transparent.html": {
+    "href": "examples/nav_transparent.html",
+    "resources": [],
+    "priority": 59
+  },
+  "examples/nav_transparent_native.html": {
+    "href": "examples/nav_transparent_native.html",
+    "resources": [],
+    "priority": 60
+  },
+  "examples/pullrefresh.html": {
+    "href": "examples/pullrefresh.html",
+    "resources": [],
+    "priority": 67
+  },
+  "examples/tab-webview-subpage-contact.html": {
+    "href": "examples/tab-webview-subpage-contact.html",
+    "resources": [],
+    "priority": 69
+  },
+  "examples/tab-webview-subpage-about.html": {
+    "href": "examples/tab-webview-subpage-about.html",
+    "resources": [],
+    "priority": 70
+  },
+  "examples/tabbar-with-submenus.html": {
+    "href": "examples/tabbar-with-submenus.html",
+    "resources": [],
+    "priority": 70
+  },
+  "examples/tab-top-subpage-3.html": {
+    "href": "examples/tab-top-subpage-3.html",
+    "resources": [],
+    "priority": 73
+  },
+  "examples/tab-top-subpage-5.html": {
+    "href": "examples/tab-top-subpage-5.html",
+    "resources": [],
+    "priority": 74
+  },
+  "examples/tab-top-subpage-1.html": {
+    "href": "examples/tab-top-subpage-1.html",
+    "resources": [],
+    "priority": 75
+  },
+  "examples/tab-top-subpage-4.html": {
+    "href": "examples/tab-top-subpage-4.html",
+    "resources": [],
+    "priority": 76
+  },
+  "examples/tab-top-subpage-2.html": {
+    "href": "examples/tab-top-subpage-2.html",
+    "resources": [],
+    "priority": 77
+  },
+  "examples/tab-top-webview-main.html": {
+    "href": "examples/tab-top-webview-main.html",
+    "resources": [],
+    "refer": [],
+    "priority": 73
+  },
+  "examples/tab-with-segmented-control-vertical.html": {
+    "href": "examples/tab-with-segmented-control-vertical.html",
+    "resources": [],
+    "priority": 74
+  },
+  "examples/tab-vertical-scroll.html": {
+    "href": "examples/tab-vertical-scroll.html",
+    "resources": [],
+    "priority": 75
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  }
+}

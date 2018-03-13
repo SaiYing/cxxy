@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/resetmui.css" rel="stylesheet" />
+		<style>
+			.mui-content-bg{position: absolute;width: 100%;height: 100%;padding:15px;box-sizing:border-box;background: url(../images/artical_detail_bg.png) no-repeat left top;background-attachment: fixed !important;background-size: 100% 100%;overflow-y: auto;overflow-x: hidden;}
+			img{max-width:100%;max-height:50%;margin: auto;}
+		</style>
+		 
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title" id="articletitle">标题</h1>
+		</header>
+		<div class="mui-content mui-content-bg" id="articlecontent">
+			正在读取中...		    	
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var artcleid = self.artcleid;
+				//mui.toast("234"+artcleid);
+				mui.post(config.hostw+'home/School/ArticleContent',{id:artcleid},function(data){
+					if(data.status==1){
+						var articletitle = data.message.title;
+						var articlecontent = data.message.content;
+						$("#articletitle").text(articletitle);
+						$("#articlecontent").html(articlecontent);
+					}
+				})
+			});
+		</script>
+	</body>
+
+</html>

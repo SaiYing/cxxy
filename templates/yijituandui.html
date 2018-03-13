@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>			
+			.table_tr{ display: table; width: 100%;}
+			.table_td{ display: table-cell; width: 25%; text-align: center; line-height: 36px; overflow: hidden;}
+			.mui-scroll-wrapper{ background-color: #fff;}
+			.mui-card{ margin: 0;}
+			.mui-collapse-content p{ color: #333;}
+			.mui-collapse-content p label{  display:inline-block; width: 100px; color: #999; text-align: right;}
+			.norecord{ text-align: center; padding: 10px;}
+		</style>
+	</head>
+
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="table_tr theader">
+					<div class="table_td">ID</div>
+					<div class="table_td">用户名</div>
+					<div class="table_td">时间</div>
+					<div class="table_td">详情</div>
+				</div>
+				<div class="mui-card">
+				<ul class="mui-table-view" id="wrapper">
+					<!--<li class="mui-table-view-cell mui-collapse" id="list">
+						<a class="mui-navigate-right" href="#">
+							<div class="table_tr">
+								<div class="table_td" id="bhId">正在读取中...</div>
+								<div class="table_td" id="userName">正在读取中...</div>
+								<div class="table_td" id="time">正在读取中...</div>
+								<div class="table_td">&nbsp;</div>
+							</div>
+						</a>
+						<div class="mui-collapse-content">
+							<p>暂无更多</p>
+						</div>
+					</li>-->
+
+				</ul>
+			</div>
+				
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script>
+			$(function(){
+				var height = $(window).height()-36;
+				$('#wrapper').height(height+'px');
+				$('#wrapper').css('overflow-y','auto');
+				$.post(config.hostw+"home/Team/firstTeam",function(data){
+					if(data.status==1){
+						var count = eval(data.message).length;
+						for(var i = 0; i < count; i++){
+							var lists = '<li class="mui-table-view-cell mui-collapse" id="list'+i+'"><a class="mui-navigate-right" href="#"><div class="table_tr"><div class="table_td"><span id="userID'+i+'">正在读取中...</span></div><div class="table_td"><span id="userName'+i+'">正在读取中...</span></div><div class="table_td"><span id="time'+i+'">正在读取中...</span></div><div class="table_td">&nbsp;</div></div></a><div class="mui-collapse-content"><p id="note'+i+'">备注：正在读取中...</p><p id="beforeIncome'+i+'">收益前金额:正在读取中...</p><p id="updateIncome'+i+'">收益金额:正在读取中...</p><p id="afterIncome'+i+'">收益后金额:正在读取中...</p></div></li>';
+							$("#wrapper").append(lists);	
+						};
+						$.each(data.message, function(i,item) {
+							var bhId = item.bh_id;
+							//mui.toast(bhId);
+							var userName = item.user_nickname;
+							var time = item.create_time;
+							var note = item.note;
+							var beforeIncome = item.before_income;
+							var updateIncome = item.update_income;
+							var afterIncome = item.after_income;
+	
+							$("#"+"userID"+i).text(bhId);
+							$("#"+"userName"+i).text(userName);
+							$("#"+"time"+i).text(time);
+							$("#"+"note"+i).text('备注:'+note);
+							$("#"+"beforeIncome"+i).text('收益前:'+beforeIncome);
+							$("#"+"updateIncome"+i).text('收益:'+updateIncome);
+							$("#"+"afterIncome"+i).text('收益后:'+afterIncome);
+	
+						});
+					}else if(data.status==0){
+						var norecord ='<div class="norecord">'+data.message+'</div>'
+						$('#wrapper').html(norecord);
+					};
+					
+				});
+			});
+			mui.init({
+				swipeBack: true,
+				keyEventBind: {
+					backbutton: false //关闭back按键监听
+				}
+//				,
+//				pullRefresh: {
+//					container: '#pullrefresh',
+//					up: {
+//						contentrefresh: '正在加载...',
+//						callback: pullupRefresh
+//					}
+//				}
+				
+			});
+			//var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+//			function pullupRefresh() {
+//				setTimeout(function() {
+//					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+//					var table = document.body.querySelector('.mui-table-view');
+//					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+//					for(var i = cells.length, len = i + 20; i < len; i++) {
+//						var li = document.createElement('li');
+//						li.className = 'mui-table-view-cell mui-collapse';
+//						li.innerHTML = '<a class="mui-navigate-right" href="#"><div class="table_tr"><div class="table_td">liuxinke</div><div class="table_td">小小娃' + (i + 1) +'</div><div class="table_td">2017-07-07</div><div class="table_td">&nbsp;</div></div></a><div class="mui-collapse-content"><p><label>收入帐号：</label>13838383838</p><p><label>支出帐号：</label>999</p><p><label>昵称：</label>999</p><p><label>转出时间：</label>2017-07-07 19：00</p><p><label>金额：</label>99</p></div>';
+//						table.appendChild(li);
+//					}
+//				}, 1000);
+//			}
+		</script>
+	</body>
+
+</html>

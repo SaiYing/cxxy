@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/resetmui.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 40%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 60%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			.mui-input-row .mui-btn{ width: auto; line-height: 1;}
+			.vercode{ position: absolute; right: 2px; top:2px;}
+			.nanzhu img, .nvzhu img{ height: 160px;}
+			
+			.mui-content{position: absolute;width: 100%;height: 100%;background: url(../images/kuang_bg.jpg) no-repeat left top;background-attachment: fixed;background-size: 100% 100%;}
+			.mui-input-group{background-color:transparent;}
+			.mui-input-group:before,.mui-input-group:after,.mui-input-row:after{height: 0 !important;}			
+			.fshoujihao{width:78.3%;height:37px;background: url(../images/input_bg.png) no-repeat  left top !important;background-size: 100% 100% !important;margin:0 auto 5px;}
+			.mui-input-row label{padding:11px 8px 11px 20px;}
+			.mui-input-row label.faccount{padding-right: 0;}
+			.fshoujihao .mui-input{float: left;}
+			.mui-input-row .mui-btn{padding: 6px 2px;margin-right: 16px;margin-top: 4px;}
+			.ftijiao{width:141px;height:58px;background: url(../images/tijiao_bg.png) no-repeat  left top;background-size: 100% 100%;margin: 0 auto;border:none;}
+			h5{width:70%;color:#000;margin: 15px auto 0 !important;}
+			.nanzhu img, .nvzhu img {height: 80px;}
+			.select_gender{text-align: center;}
+			.select_gender input{left:56px !important;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">完善资料</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">推荐ID</label>
+					<input id='tj_account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号" required="required">
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">微信号</label>
+					<input id='wx_account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号"required="required">
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">昵 称</label>
+					<input id='nickname' type="text" class="mui-input-clear mui-input" placeholder="请输入昵称"required="required">
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">真实姓名</label>
+					<input id='realname' type="text" class="mui-input-clear mui-input" placeholder="请输入真实姓名"required="required">
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">身份证号</label>
+					<input id='idcard' type="number" class="mui-input-clear mui-input" placeholder="请输入昵称"required="required">
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">宝库密码</label>
+					<input id='bkpassword' type="password" required="required" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+				<div class="mui-input-row fshoujihao">
+					<label class="faccount">确认密码</label>
+					<input id='bkpassword_confirm' type="password" class="mui-input-clear mui-input" placeholder="请输入密码" required="required">
+				</div>
+				<h5 class="mui-content-padded">性别</h5>
+				<div class="mui-content-padded" style="overflow: hidden;width:78.3%;margin: 5px auto 0;">
+					<div class="" style="width: 50%; float: left;">
+						<div class="nanzhu mui-content-padded" style="margin: 0px 10px;text-align: center;"><img src="../images/nanzhu.png"></div>
+						<div class="mui-input-row mui-radio mui-left select_gender" >
+							<label>男</label>
+							<input name="sex" type="radio" value="2">
+						</div>
+					</div>
+					<div class="" style="width: 50%; float: left;">
+						<div class="nvzhu mui-content-padded" style="margin: 0px 10px;text-align: center;"><img src="../images/nvzhu.png"></div>
+						<div class="mui-input-row mui-radio mui-left select_gender">
+							<label>女</label>
+							<input name="sex" type="radio" checked="" value="1">
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="mui-content-padded" style="margin: 0;">
+				<button id='wsbutton' class="mui-btn mui-btn-block mui-btn-primary ftijiao"></button>
+			</div>
+			<!--<div class="mui-content-padded">
+				<p>注册真实可用，注册成功后的用户可用于登录，但是示例程序并未和服务端交互，用户相关数据仅存储于本地。</p>
+			</div>-->
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/config.js"></script>
+		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script>
+			(function($, doc) {
+				$.init({
+					preloadPages:[
+					    {
+					      url:'../index.html',
+					      id:'index',
+					      styles:{},//窗口参数
+					      extras:{},//自定义扩展参数
+					      subpages:[{},{}]//预加载页面的子页面
+					    },{
+					      url:'reg.html',
+					      id:'reg',
+					      styles:{},//窗口参数
+					      extras:{},//自定义扩展参数
+					      subpages:[{},{}]//预加载页面的子页面
+					    }
+					]
+				});
+
+				$.plusReady(function() {
+				});
+			}(mui, document));
+			$('#wsbutton').click(function(){    			
+				var tj_account = $('#tj_account').val();
+				var wx_account = $('#wx_account').val();
+				var idcard = $('#idcard').val();
+				var nickname = $('#nickname').val();
+				var realname = $('#realname').val();
+				var bkpassword = $('#bkpassword').val();
+				var bkpassword_confirm = $('#bkpassword_confirm').val(); 
+				var obj_sex = $("input[name=sex]");
+				var useraccount = "useraccount";
+				var caccount = localStorage.getItem(useraccount);
+				mui.toast(caccount);
+			    for(var i=0; i<obj_sex.length; i ++){
+			        if(obj_sex[i].checked){
+			            //alert(obj_sex[i].value);
+			            var sexval = obj_sex[i].value;
+			            mui.toast(caccount);
+			            $.post(config.hostw+'home/PersonInfo/perfect_data',{tj_id:tj_account,user_name:caccount,sf_id:idcard,wx_account:wx_account,user_nickname:nickname,bk_pass:bkpassword,bk_repass:bkpassword_confirm,sex:sexval,user_realname:realname},function(data){
+								if (data.status == 0) {
+									mui.toast(data.message);
+								} else if(data.status ==1){
+									mui.toast(data.message);
+									mui.openWindow({
+										url:"../index.html",
+										id:"index"
+									})
+								}
+							});
+			        }
+			    }
+			});
+		</script>
+	</body>
+
+</html>

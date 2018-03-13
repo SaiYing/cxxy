@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<title></title>
+	<link rel="stylesheet" href="../css/mui.min.css">
+	<link rel="stylesheet" href="../css/resetmui.css">
+	<link rel="stylesheet" href="../css/styleCJ.css"/>
+	<link rel="stylesheet" href="../css/app.css"/>
+	<style type="text/css">
+		.choujiangBody{background: url(../images/index-body.gif) no-repeat #efeff4;background-attachment:fixed;background-size: 100% 100%;width: 100%;position:relative;top: 0;left: 0;}
+		.choujiang_rule{margin-top: 20px;}
+		.choujiang_rule h4{text-align: center;}
+		.choujiang_rule p{color:#000;}
+		.reward{ width: 120px; display: inline-block;}
+	</style>
+</head>
+<body class="choujiangBody">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">抽奖</h1>
+	</header>
+    <div class="choujiang">
+        <div class="shanDeng" id="deng">
+            <div id="luck"><!-- luck -->
+                <table>
+                    <tr>
+                        <td class="luck-unit luck-unit-0"><img src="../images/cjimg/box.png"></td>
+                        <td class="luck-unit luck-unit-1"><img src="../images/cjimg/box.png"></td>
+                        <td class="luck-unit luck-unit-2"><img src="../images/cjimg/box.png"></td>
+                        <td class="luck-unit luck-unit-3"><img src="../images/cjimg/box.png"></td>
+                    </tr>
+                    <tr>
+                        <td class="luck-unit luck-unit-11"><img src="../images/cjimg/box.png"></td>
+                        <td rowspan="2" colspan="2" class="cjBtn" id="btn"></td>
+                        <td class="luck-unit luck-unit-4"><img src="../images/cjimg/box.png"></td>
+                    </tr>
+                    <tr>
+                        <td class="luck-unit luck-unit-10"><img src="../images/cjimg/box.png"></td>
+                        <td class="luck-unit luck-unit-5"><img src="../images/cjimg/box.png"></td>
+                    </tr>
+                    <tr>
+                        <td class="luck-unit luck-unit-9"><img src="../images/cjimg/box.png"></td>
+                        <td class="luck-unit luck-unit-8"><img src="../images/cjimg/box.png"></td>
+                        <td class="luck-unit luck-unit-7"><img src="../images/cjimg/box.png"></td>
+                        <td class="luck-unit luck-unit-6"><img src="../images/cjimg/box.png"></td>
+                    </tr>
+                </table>
+            </div><!-- luckEnd -->
+        </div>
+        <audio id="Yaojiang" src="../media/yaojiang.mp3" preload="auto">您的设备不支持 audio 标签。</audio>
+        <div class="choujiang_rule">
+        	<h4>抽奖规则</h4>
+        	<p>1.每次抽奖需要消耗<span id="cjjsCount">*</span>晶石,每日可抽<span id="time">*</span>次。</p>
+        	<p>2.红晶充足方可参加抽奖。</p>
+        	<p>3.最高可获得1000蓝晶或红晶奖励。</p>
+        	<p>4.中奖晶石直接添加到玩家晶石库。</p>
+        	<p>5.适当娱乐有利于身心健康，切勿沉迷。</p>
+        	<p>6.辰星仙缘愿你开心每一天，好运滚滚来。</p>
+        	<h4>抽奖记录</h4>
+        	<div id="wrapper">
+        		<p></p>
+        	</div>
+        </div>
+    </div>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../plugs/layer_mobile/layer.js"></script>
+	<script src="../js/config.js"></script>
+	<script>
+		$(function(){
+			var McotHeight = $(window).height();//声明 McotHeight变量为窗口的高度
+			$(".choujiangBody").height(McotHeight+'px');//将窗口的高度动态给.choujiangBody
+			//抽奖规则
+			$.post(config.hostw+'home/Turn/turn',function(data){
+				var num = data.message.consume_count;
+				var time = data.message.prize_num;				
+				$('#cjjsCount').text(num);
+				$('#time').text(time);
+			});
+			//抽奖记录
+			$.post(config.hostw+'home/Turn/turn_log',function(data){
+				if(data.status==1){
+						var count = eval(data.message).length;
+						for(var i = 0; i < count; i++){
+							var lists = '<p><span class="reward" id="rewardPrize'+i+'">**</span>&nbsp;<span id="addtime'+i+'">**</span></p>';
+							$("#wrapper").append(lists);	
+						};
+						$.each(data.message, function(i,item) {
+							var rewardPrize = item.reward_prize;
+							var addtime = item.addtime;
+
+							$("#"+"rewardPrize"+i).text(rewardPrize);
+							$("#"+"addtime"+i).text(addtime);
+	
+						});
+					}else if(data.status==0){
+						var norecord ='<p>'+data.message+'</p>'
+						$('#wrapper').html(norecord);
+					};
+			});
+		});
+		mui.init();
+		mui.plusReady(function(){     
+        });
+        //抽奖
+		var luck={
+			index:-1,	//当前转动到哪个位置，起点位置
+			count:0,	//总共有多少个位置
+			timer:0,	//setTimeout的ID，用clearTimeout清除
+			speed:1,	//初始转动速度
+			times:0,	//转动次数
+			cycle:50,	//转动基本次数：即至少需要转动多少次再进入抽奖环节
+			prize:-1,	//中奖位置
+			init:function(id){
+				if ($("#"+id).find(".luck-unit").length>0) {
+					$luck = $("#"+id);
+					$units = $luck.find(".luck-unit");
+					this.obj = $luck;
+					this.count = $units.length;
+					$luck.find(".luck-unit-"+this.index).addClass("active");
+				};
+			},			
+			roll:function(){
+				var index = this.index;
+				var count = this.count;
+				var luck = this.obj;
+				$(luck).find(".luck-unit-"+index).removeClass("active");
+				index += 1;
+				if (index>count-1) {
+					index = 0;
+				};
+				$(luck).find(".luck-unit-"+index).addClass("active");
+				this.index=index;
+				return false;
+			},
+			stop:function(index){
+				this.prize=index;
+				return false;				
+			}
+		};
+
+
+		function roll(){
+			luck.times += 1;
+			luck.roll();
+			if (luck.times > luck.cycle+10 && luck.prize==luck.index) {
+				clearTimeout(luck.timer);
+				luck.prize=-1;
+				luck.times=0;
+				click=false;
+			}else{
+				if (luck.times<luck.cycle) {
+					luck.speed -= 10;
+				}else{
+					if (luck.times > luck.cycle+10 && ((luck.prize==0 && luck.index==7) || luck.prize==luck.index+1)) {
+						luck.speed += 110;
+					}else{
+						luck.speed += 20;
+					}
+				}
+				if (luck.speed<40) {
+					luck.speed=50;
+				};
+				luck.timer = setTimeout(roll,20);
+			}
+			return false;
+			
+		}
+
+
+	//闪灯效果
+		var num = 0;
+		$(".shanDeng").attr("class",function(){
+			setInterval(function(){ 
+				num++;
+				if(num%2==0){
+					$('#deng').addClass("shanDeng2");
+				}else{
+					$('#deng').addClass("shanDeng");
+					$('#deng').removeClass('shanDeng2');
+				}
+			},500)
+		})
+
+		var click=false;
+		window.onload=function(){			
+			luck.init('luck');
+			$("#btn").click(function(){	
+
+				$.post(config.hostw +'home/Turn/get_v','',function(data){
+					if(data.status ==0){
+				          luck.speed=100;
+				          luck.prize = data.angle;  
+				          roll();
+				          setTimeout(function timedMsg(){
+							if(data.type=='hj'){
+								layer.open({				          	
+								    type: 1
+								    ,content: '<img id="image" src="../images/cjimg/hj.png">'
+								    ,anim: 'up'
+								    ,className: 'layer_image'
+								    ,style: ''
+								 });
+				          		
+				          	}else if(data.type=='lj'){
+				          		layer.open({				          	
+								    type: 1
+								    ,content: '<img id="image" src="../images/cjimg/lj.png">'
+								    ,anim: 'up'
+								    ,className: 'layer_image'
+								    ,style: ''
+								 });
+				          		
+				          	}else if(data.type=='xg'){
+				          		layer.open({				          	
+								    type: 1
+								    ,content: '<img id="image" src="../images/cjimg/xg.png">'
+								    ,anim: 'up'
+								    ,className: 'layer_image'
+								    ,style: ''
+								 });
+				          		
+				          	}else{
+				          		layer.open({				          	
+								    type: 1
+								    ,content: '<img id="image" src="../images/cjimg/mj.png">'
+								    ,anim: 'up'
+								    ,className: 'layer_image'
+								    ,style: ''
+								 });
+				          	}
+
+				          	
+							mui.toast(data.message);
+							
+							},20*80);
+				          return false;                        
+					}else{						
+						mui.toast(data.message);
+						return false;
+					};
+				});
+				//按下弹起效果
+				$("#btn").addClass("cjBtnDom");
+				setTimeout(function(){	
+					$("#btn").removeClass("cjBtnDom");
+				},200);
+				var CJmusic = document.getElementById("Yaojiang");
+				CJmusic.play();
+				if(click) {
+					return false;
+				}
+				else{
+					luck.speed=100;
+					luck.prize = 0;	
+					//roll();
+					click=true;
+					return false;
+				}
+			});
+		};
+	</script>
+</body>
+</html>
